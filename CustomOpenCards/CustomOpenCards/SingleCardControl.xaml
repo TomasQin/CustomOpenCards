@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="CustomOpenCards.SingleCardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Effect="clr-namespace:CustomOpenCards.Effects"
+             mc:Ignorable="d"  Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Storyboard x:Key="fanzhuan">
+            <!--卡牌的翻转动画-->
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="FrontGridScaleTransform">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame  KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="BackGridScaleTransform">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <!--卡牌归属说明的渐进显示效果-->
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="CardInfoGrid" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame  KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <!--卡牌渐进显示效果-->
+            <DoubleAnimation BeginTime="0:0:0.5" Duration="0:0:1" Storyboard.TargetName="qq" AccelerationRatio="0.5" DecelerationRatio="0.5" Storyboard.TargetProperty="Progress" To="1" From="0"/>
+            <!--卡牌阴影逐渐消失的过程-->
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridEffect" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:7" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="MyGrid" MouseDown="Grid_MouseDown" MouseEnter="MyGrid_MouseEnter" MouseLeave="MyGrid_MouseLeave">
+            <Grid.Effect>
+                <DropShadowEffect x:Name="GridEffect" ShadowDepth="0" BlurRadius="70" Color="Transparent" Opacity="0" />
+            </Grid.Effect>
+            <Grid.RenderTransform>
+                <ScaleTransform x:Name="MyGridScaleTransform" />
+            </Grid.RenderTransform>
+            <Grid x:Name="XFrontGrid" Grid.Row="0" Width="200" Height="292" RenderTransformOrigin="0.5,0.5">
+                <Grid.Background>
+                    <ImageBrush ImageSource="Images\White.jpg"></ImageBrush>
+                </Grid.Background>
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="FrontGridScaleTransform" />
+                </Grid.RenderTransform>
+                <Image Name="FrontImage" Stretch="Fill" >
+                    <Image.Effect>
+                        <Effect:RippleTransitionEffect  x:Name="qq" >
+                            <Effect:RippleTransitionEffect.OldImage>
+                                <VisualBrush TileMode="None" Opacity="0.4"   Stretch="Fill" AlignmentX="Left" >
+                                    <VisualBrush.Visual>
+                                        <Grid x:Name="EffectBrush" Margin="20" Background="Transparent">
+                                            <Image Source="Images\White.jpg" Opacity="0"/>
+                                        </Grid>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Effect:RippleTransitionEffect.OldImage>
+                        </Effect:RippleTransitionEffect>
+                    </Image.Effect>
+                </Image>
+            </Grid>
+            <Grid  x:Name="XBackGrid" RenderTransformOrigin="0.5,0.5"  Width="200" Height="292">
+                <Grid.Background>
+                    <ImageBrush ImageSource="Images\CardBackGround.png"/>
+                </Grid.Background>
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="BackGridScaleTransform" />
+                </Grid.RenderTransform>
+            </Grid>
+        </Grid>
+
+        <Border x:Name="CardInfoGrid" Grid.Row="1" Background="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,5"  CornerRadius="20,20,20,20" >
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="50" Color="Blue"  Opacity="1" />
+            </Border.Effect>
+            <TextBlock x:Name="CardInfo" Text="所有职业" Margin="15,3"
+                   HorizontalAlignment="Center"  FontSize="20" Foreground="White">
+            </TextBlock>
+        </Border>
+
+    </Grid>
+</UserControl>

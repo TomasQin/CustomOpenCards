@@ -1,0 +1,31 @@
+﻿<Page x:Class="CustomOpenCards.OpenCardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1366"
+	  Title="OpenCardPage" ShowsNavigationUI="False" Loaded="OpenCardPage_Loaded">
+
+    <Grid x:Name="RootGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\MainPage.png"/>
+        </Grid.Background>
+        <Canvas x:Name="LayoutRoot" >
+
+            
+            <Grid x:Name="EffectivePositionGrid" Canvas.Left="685" Canvas.Top="235"  Height="248" Width="209" 
+              AllowDrop ="True"  Background="RoyalBlue" Opacity="0.1" />
+
+            <!--<Grid Canvas.Left="227" Canvas.Top="130" Height="100" Width="100" Background="Tomato" 
+              MouseMove="Element_MouseMove" MouseLeftButtonDown="Element_MouseLeftButtonDown"
+              MouseLeftButtonUp="Element_MouseLeftButtonUp" Cursor="Hand"/>-->
+            
+            <Button x:Name="BackBtn" Opacity="0" Click="BackBtn_Click" ></Button>
+        </Canvas>
+        <Grid Background="#66000000" x:Name="ShowCardsGrid" Visibility="Collapsed">
+            <ContentControl x:Name="ShowCardsControl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+
+</Page>

@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{20798EC3-80B8-4855-BFBF-784DC828CCCB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CustomOpenCards</RootNamespace>
+    <AssemblyName>CustomOpenCards</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\IcoImage.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ShowCards_Horizontal.xaml.cs">
+      <DependentUpon>ShowCards_Horizontal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SingleCardControl.xaml.cs">
+      <DependentUpon>SingleCardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SingleCardPackageControl.xaml.cs">
+      <DependentUpon>SingleCardPackageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CardShopPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessLogic\CardContentArithmetic.cs" />
+    <Compile Include="BusinessLogic\CardQualityArithmetic.cs" />
+    <Compile Include="BusinessLogic\ProbabilityControl\CardTypeProb.cs" />
+    <Compile Include="BusinessLogic\ProbabilityControl\ClassicalProb.cs" />
+    <Compile Include="BusinessLogic\ProbabilityControl\MoreLegendProb.cs" />
+    <Compile Include="Cache\GlobalCache.cs" />
+    <Compile Include="CardShopPage.xaml.cs">
+      <DependentUpon>CardShopPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\HeightWidthConvter.cs" />
+    <Compile Include="Effects\RippleTransitionEffect.cs" />
+    <Compile Include="Entity\Card.cs" />
+    <Compile Include="Entity\CardQualityType.cs" />
+    <Compile Include="Entity\OccupationalCategory.cs" />
+    <Compile Include="Entity\PackageType.cs" />
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OpenCardPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShowCards_Horizontal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SingleCardControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SingleCardPackageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OpenCardPage.xaml.cs">
+      <DependentUpon>OpenCardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Effects\ShaderSource\RippleTransitionEffect.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CardBackGround.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\CardPackage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\CG\Druid\Epic\common_237.png" />
+    <Resource Include="Images\CG\Druid\Epic\common_242.png" />
+    <Resource Include="Images\CG\Druid\Epic\common_34.png" />
+    <Resource Include="Images\CG\Druid\Epic\common_916.png" />
+    <Resource Include="Images\CG\Druid\Epic\common_922.png" />
+    <Resource Include="Images\CG\Druid\Legend\common_605.png" />
+    <Resource Include="Images\CG\Druid\Legend\common_921.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_149.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_154.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_165.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_311.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_587.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_633.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_915.png" />
+    <Resource Include="Images\CG\Druid\Normal\common_919.png" />
+    <Resource Include="Images\CG\Druid\Normal\FP_23.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_148.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_266.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_459.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_58.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_653.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_917.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_918.png" />
+    <Resource Include="Images\CG\Druid\Rare\common_920.png" />
+    <Resource Include="Images\CG\Hunter\Epic\common_210.png" />
+    <Resource Include="Images\CG\Hunter\Epic\common_278.png" />
+    <Resource Include="Images\CG\Hunter\Epic\common_304.png" />
+    <Resource Include="Images\CG\Hunter\Epic\common_892.png" />
+    <Resource Include="Images\CG\Hunter\Epic\common_894.png" />
+    <Resource Include="Images\CG\Hunter\Legend\common_194.png" />
+    <Resource Include="Images\CG\Hunter\Legend\common_891.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_239.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_279.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_317.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_344.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_553.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_895.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_897.png" />
+    <Resource Include="Images\CG\Hunter\Normal\common_99.png" />
+    <Resource Include="Images\CG\Hunter\Normal\FP_13.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_114.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_363.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_447.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_630.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_8.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_890.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_893.png" />
+    <Resource Include="Images\CG\Hunter\Rare\common_896.png" />
+    <Resource Include="Images\CG\Mage\Epic\common_28.png" />
+    <Resource Include="Images\CG\Mage\Epic\common_309.png" />
+    <Resource Include="Images\CG\Mage\Epic\common_496.png" />
+    <Resource Include="Images\CG\Mage\Epic\common_855.png" />
+    <Resource Include="Images\CG\Mage\Epic\common_858.png" />
+    <Resource Include="Images\CG\Mage\Legend\common_220.png" />
+    <Resource Include="Images\CG\Mage\Legend\common_854.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_188.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_26.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_263.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_4.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_569.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_672.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_853.png" />
+    <Resource Include="Images\CG\Mage\Normal\common_857.png" />
+    <Resource Include="Images\CG\Mage\Normal\FP_22.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_125.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_160.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_276.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_411.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_531.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_851.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_852.png" />
+    <Resource Include="Images\CG\Mage\Rare\common_856.png" />
+    <Resource Include="Images\CG\Paladin\Epic\common_142.png" />
+    <Resource Include="Images\CG\Paladin\Epic\common_506.png" />
+    <Resource Include="Images\CG\Paladin\Epic\common_567.png" />
+    <Resource Include="Images\CG\Paladin\Epic\common_907.png" />
+    <Resource Include="Images\CG\Paladin\Epic\common_912.png" />
+    <Resource Include="Images\CG\Paladin\Legend\common_391.png" />
+    <Resource Include="Images\CG\Paladin\Legend\common_906.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_100.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_158.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_191.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_206.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_642.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_657.png" />
+    <Resource Include="Images\CG\Paladin\Normal\common_910.png" />
+    <Resource Include="Images\CG\Paladin\Normal\FP_24.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_23.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_355.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_383.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_581.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_909.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_913.png" />
+    <Resource Include="Images\CG\Paladin\Rare\common_914.png" />
+    <Resource Include="Images\CG\Priest\Epic\common_147.png" />
+    <Resource Include="Images\CG\Priest\Epic\common_301.png" />
+    <Resource Include="Images\CG\Priest\Epic\common_421.png" />
+    <Resource Include="Images\CG\Priest\Epic\common_868.png" />
+    <Resource Include="Images\CG\Priest\Epic\common_871.png" />
+    <Resource Include="Images\CG\Priest\Legend\common_228.png" />
+    <Resource Include="Images\CG\Priest\Legend\common_874.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_192.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_207.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_232.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_38.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_544.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_62.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_872.png" />
+    <Resource Include="Images\CG\Priest\Normal\common_873.png" />
+    <Resource Include="Images\CG\Priest\Normal\FP_27.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_117.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_249.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_442.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_457.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_656.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_867.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_869.png" />
+    <Resource Include="Images\CG\Priest\Rare\common_870.png" />
+    <Resource Include="Images\CG\Rogue\Epic\common_14.png" />
+    <Resource Include="Images\CG\Rogue\Epic\common_364.png" />
+    <Resource Include="Images\CG\Rogue\Epic\common_562.png" />
+    <Resource Include="Images\CG\Rogue\Epic\common_875.png" />
+    <Resource Include="Images\CG\Rogue\Epic\common_876.png" />
+    <Resource Include="Images\CG\Rogue\Legend\common_3.png" />
+    <Resource Include="Images\CG\Rogue\Legend\common_880.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_198.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_284.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_382.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_417.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_550.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_877.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_881.png" />
+    <Resource Include="Images\CG\Rogue\Normal\common_92.png" />
+    <Resource Include="Images\CG\Rogue\Normal\FP_30.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_127.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_135.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_244.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_286.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_82.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_840.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_878.png" />
+    <Resource Include="Images\CG\Rogue\Rare\common_879.png" />
+    <Resource Include="Images\CG\Shaman\Epic\common_107.png" />
+    <Resource Include="Images\CG\Shaman\Epic\common_124.png" />
+    <Resource Include="Images\CG\Shaman\Epic\common_172.png" />
+    <Resource Include="Images\CG\Shaman\Epic\common_902.png" />
+    <Resource Include="Images\CG\Shaman\Epic\common_904.png" />
+    <Resource Include="Images\CG\Shaman\Legend\common_335.png" />
+    <Resource Include="Images\CG\Shaman\Legend\common_901.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_10.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_129.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_152.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_51.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_530.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_77.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_900.png" />
+    <Resource Include="Images\CG\Shaman\Normal\common_905.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_214.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_526.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_613.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_676.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_679.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_898.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_899.png" />
+    <Resource Include="Images\CG\Shaman\Rare\common_903.png" />
+    <Resource Include="Images\CG\Warlock\Epic\common_398.png" />
+    <Resource Include="Images\CG\Warlock\Epic\common_402.png" />
+    <Resource Include="Images\CG\Warlock\Epic\common_670.png" />
+    <Resource Include="Images\CG\Warlock\Epic\common_860.png" />
+    <Resource Include="Images\CG\Warlock\Epic\common_866.png" />
+    <Resource Include="Images\CG\Warlock\Legend\common_482.png" />
+    <Resource Include="Images\CG\Warlock\Legend\common_861.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_170.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_196.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_327.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_452.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_566.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_85.png" />
+    <Resource Include="Images\CG\Warlock\Normal\common_862.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_119.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_236.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_507.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_573.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_673.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_859.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_863.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_864.png" />
+    <Resource Include="Images\CG\Warlock\Rare\common_865.png" />
+    <Resource Include="Images\CG\Worrior\Epic\common_297.png" />
+    <Resource Include="Images\CG\Worrior\Epic\common_50.png" />
+    <Resource Include="Images\CG\Worrior\Epic\common_882.png" />
+    <Resource Include="Images\CG\Worrior\Epic\common_888.png" />
+    <Resource Include="Images\CG\Worrior\Epic\common_96.png" />
+    <Resource Include="Images\CG\Worrior\Legend\common_643.png" />
+    <Resource Include="Images\CG\Worrior\Legend\common_885.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_215.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_328.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_366.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_454.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_504.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_664.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_886.png" />
+    <Resource Include="Images\CG\Worrior\Normal\common_887.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_166.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_345.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_638.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_644.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_69.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_883.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_884.png" />
+    <Resource Include="Images\CG\Worrior\Rare\common_889.png" />
+    <Resource Include="Images\CG\Worrior\Rare\FP_25.png" />
+    <Resource Include="Images\MainPage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\TGT\Druid\Epic\1439176698589.png" />
+    <Resource Include="Images\TGT\Druid\Epic\1439700853383.png" />
+    <Resource Include="Images\TGT\Druid\Legend\1438828541177.png" />
+    <Resource Include="Images\TGT\Druid\Normal\1438745505231.png" />
+    <Resource Include="Images\TGT\Druid\Normal\1439176697843.png" />
+    <Resource Include="Images\TGT\Druid\Normal\1439700865250.png" />
+    <Resource Include="Images\TGT\Druid\Rare\1438227945245.png" />
+    <Resource Include="Images\TGT\Druid\Rare\1439189409452.png" />
+    <Resource Include="Images\TGT\Druid\Rare\1439700853648.png" />
+    <Resource Include="Images\TGT\Hunter\Epic\1437643418578.png" />
+    <Resource Include="Images\TGT\Hunter\Epic\1439796578287.png" />
+    <Resource Include="Images\TGT\Hunter\Legend\1439796578169.png" />
+    <Resource Include="Images\TGT\Hunter\Legend\1439796578221.png" />
+    <Resource Include="Images\TGT\Hunter\Normal\1438756423197.png" />
+    <Resource Include="Images\TGT\Hunter\Normal\1439796578355.png" />
+    <Resource Include="Images\TGT\Hunter\Normal\1439817386599.png" />
+    <Resource Include="Images\TGT\Hunter\Rare\1437993645563.png" />
+    <Resource Include="Images\TGT\Hunter\Rare\1439431677425.png" />
+    <Resource Include="Images\TGT\Hunter\Rare\1439796578115.png" />
+    <Resource Include="Images\TGT\Mage\Epic\1437643418508.png" />
+    <Resource Include="Images\TGT\Mage\Epic\1439783049769.png" />
+    <Resource Include="Images\TGT\Mage\Legend\1439431677601.png" />
+    <Resource Include="Images\TGT\Mage\Normal\1438584648360.png" />
+    <Resource Include="Images\TGT\Mage\Normal\1438599590567.png" />
+    <Resource Include="Images\TGT\Mage\Normal\1439783042706.png" />
+    <Resource Include="Images\TGT\Mage\Rare\1437643419105.png" />
+    <Resource Include="Images\TGT\Mage\Rare\1437993733927.png" />
+    <Resource Include="Images\TGT\Mage\Rare\1439783042566.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1437643418307.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1437993820584 %281%29.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1437993820584.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1437993872266.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1438672420059.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1438745505103.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1438928875478.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1439702877567.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1439702877736.png" />
+    <Resource Include="Images\TGT\Neutral\Epic\1439702878309.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1437643418435.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1437705519631.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1438227945409.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1438227945490.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1438828541503.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1438828542145.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1439275681444.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1439292681804.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1439701728719.png" />
+    <Resource Include="Images\TGT\Neutral\Legend\1439701728838.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1437643418168.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1437991563781.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1437993949405.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1437994184395.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438227945356.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438239564178.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438324307565.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438584647983.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438591913786.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438828541441.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1438828541564.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439176698771.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780870302.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780870525.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780870605.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780870662.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780870731.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780870873.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780871006.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780871145.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780871278.png" />
+    <Resource Include="Images\TGT\Neutral\Normal\1439780871401.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1438069310091.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1438308831182.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1438828541375.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1438828541698.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1438828542387.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1439395107139.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1439780870395.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1439780870464.png" />
+    <Resource Include="Images\TGT\Neutral\Rare\1439780870788.png" />
+    <Resource Include="Images\TGT\Paladin\Epic\1439723701104.png" />
+    <Resource Include="Images\TGT\Paladin\Epic\1439723701288.png" />
+    <Resource Include="Images\TGT\Paladin\Legend\1438828541010.png" />
+    <Resource Include="Images\TGT\Paladin\Normal\1439176697963.png" />
+    <Resource Include="Images\TGT\Paladin\Normal\1439723700770.png" />
+    <Resource Include="Images\TGT\Paladin\Normal\1439723700937.png" />
+    <Resource Include="Images\TGT\Paladin\Rare\1438828541297.png" />
+    <Resource Include="Images\TGT\Paladin\Rare\1438828541765.png" />
+    <Resource Include="Images\TGT\Paladin\Rare\1439723699699.png" />
+    <Resource Include="Images\TGT\Priest\Epic\1438928875424.png" />
+    <Resource Include="Images\TGT\Priest\Epic\1439793540690.png" />
+    <Resource Include="Images\TGT\Priest\Legend\1439724936259.png" />
+    <Resource Include="Images\TGT\Priest\Normal\1437991485117.png" />
+    <Resource Include="Images\TGT\Priest\Normal\1439176697545.png" />
+    <Resource Include="Images\TGT\Priest\Normal\1439793540559.png" />
+    <Resource Include="Images\TGT\Priest\Rare\1439793540450.png" />
+    <Resource Include="Images\TGT\Priest\Rare\1439793540497.png" />
+    <Resource Include="Images\TGT\Priest\Rare\1439793785390.png" />
+    <Resource Include="Images\TGT\Rogue\Epic\1437994008310.png" />
+    <Resource Include="Images\TGT\Rogue\Epic\1439794774611.png" />
+    <Resource Include="Images\TGT\Rogue\Legend\1438828541124.png" />
+    <Resource Include="Images\TGT\Rogue\Normal\1438584648677.png" />
+    <Resource Include="Images\TGT\Rogue\Normal\1439794774727.png" />
+    <Resource Include="Images\TGT\Rogue\Normal\1439794774791.png" />
+    <Resource Include="Images\TGT\Rogue\Rare\1438828541237.png" />
+    <Resource Include="Images\TGT\Rogue\Rare\1439217921316.png" />
+    <Resource Include="Images\TGT\Rogue\Rare\1439794774672.png" />
+    <Resource Include="Images\TGT\Shaman\Epic\1439176698094.png" />
+    <Resource Include="Images\TGT\Shaman\Epic\1439720598687.png" />
+    <Resource Include="Images\TGT\Shaman\Legend\1439720598822.png" />
+    <Resource Include="Images\TGT\Shaman\Normal\1437994339660.png" />
+    <Resource Include="Images\TGT\Shaman\Normal\1437994366649.png" />
+    <Resource Include="Images\TGT\Shaman\Normal\1438828541632.png" />
+    <Resource Include="Images\TGT\Shaman\Rare\1437994228642.png" />
+    <Resource Include="Images\TGT\Shaman\Rare\1437994290061.png" />
+    <Resource Include="Images\TGT\Shaman\Rare\1439347112809.png" />
+    <Resource Include="Images\TGT\Warlock\Epic\1439259076400.png" />
+    <Resource Include="Images\TGT\Warlock\Epic\1439783780445.png" />
+    <Resource Include="Images\TGT\Warlock\Legend\1437991598845.png" />
+    <Resource Include="Images\TGT\Warlock\Normal\1438584647865.png" />
+    <Resource Include="Images\TGT\Warlock\Normal\1438584648589.png" />
+    <Resource Include="Images\TGT\Warlock\Normal\1439783780526.png" />
+    <Resource Include="Images\TGT\Warlock\Rare\1439176697718.png" />
+    <Resource Include="Images\TGT\Warlock\Rare\1439783780283.png" />
+    <Resource Include="Images\TGT\Warlock\Rare\1439783780392.png" />
+    <Resource Include="Images\TGT\Worrior\Epic\1439295732275.png" />
+    <Resource Include="Images\TGT\Worrior\Epic\1439795467678.png" />
+    <Resource Include="Images\TGT\Worrior\Legend\1439431771222.png" />
+    <Resource Include="Images\TGT\Worrior\Normal\1438745505399.png" />
+    <Resource Include="Images\TGT\Worrior\Normal\1438828542255.png" />
+    <Resource Include="Images\TGT\Worrior\Normal\1439795467787.png" />
+    <Resource Include="Images\TGT\Worrior\Rare\1438591913900.png" />
+    <Resource Include="Images\TGT\Worrior\Rare\1439176697354.png" />
+    <Resource Include="Images\TGT\Worrior\Rare\1439795467916.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\CG\Neutral\Epic\" />
+    <Folder Include="Images\CG\Neutral\Legend\" />
+    <Folder Include="Images\CG\Neutral\Normal\" />
+    <Folder Include="Images\CG\Neutral\Rare\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\White.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\IcoImage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

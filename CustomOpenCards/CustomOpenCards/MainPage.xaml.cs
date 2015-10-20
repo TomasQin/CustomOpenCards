@@ -1,0 +1,24 @@
+﻿using System.Windows;
+using System.Windows.Navigation;
+using CustomOpenCards.Converter;
+
+namespace CustomOpenCards
+{
+    /// <summary>
+    /// Interaction logic for MainPage.xaml
+    /// </summary>
+    public partial class MainPage
+    {
+        public MainPage()
+        {
+            InitializeComponent();
+            Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CardShopPage());
+            HeightWidthConvter.Instance.Convter(ActualHeight, ActualWidth);
+        }
+    }
+}
