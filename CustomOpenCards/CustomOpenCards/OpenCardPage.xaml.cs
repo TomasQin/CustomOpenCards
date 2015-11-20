@@ -11,7 +11,7 @@ namespace CustomOpenCards
     /// <summary>
     /// Interaction logic for OpenCardPage.xaml
     /// </summary>
-    public partial class OpenCardPage : Page
+    public partial class OpenCardPage
     {
         public int PackageNumber { get; set; }
 
@@ -19,9 +19,9 @@ namespace CustomOpenCards
 
         public PackageType CurrentPackageType { get; set; }
 
-        private int CurrentPackageNumber = 0;
+        private int _currentPackageNumber;
 
-        private TextBlock PackNumberTb;
+        private TextBlock _packNumberTb;
 
         public OpenCardPage()
         {
@@ -35,7 +35,7 @@ namespace CustomOpenCards
             EffectivePositionGrid.Width = HeightWidthConvter.Instance.CardSlotWdith;
             EffectivePositionGrid.Height = HeightWidthConvter.Instance.CardSlotHeight;
 
-            CurrentPackageNumber = PackageNumber;
+            _currentPackageNumber = PackageNumber;
             for (int i = 0; i < PackageNumber; i++)
             {
                 var package = new SingleCardPackageControl();
@@ -50,14 +50,14 @@ namespace CustomOpenCards
                 LayoutRoot.Children.Add(package);
             }
 
-            PackNumberTb = new TextBlock();
-            PackNumberTb.Foreground = new SolidColorBrush(Colors.White);
+            _packNumberTb = new TextBlock();
+            _packNumberTb.Foreground = new SolidColorBrush(Colors.White);
             var left = HeightWidthConvter.Instance.PackageWdith + HeightWidthConvter.Instance.PackageLeft - 20;
             var top = HeightWidthConvter.Instance.PackageTop - 20;
-            PackNumberTb.SetValue(Canvas.LeftProperty, left);
-            PackNumberTb.SetValue(Canvas.TopProperty, top);
-            PackNumberTb.Text = CurrentPackageNumber.ToString();
-            LayoutRoot.Children.Add(PackNumberTb);
+            _packNumberTb.SetValue(Canvas.LeftProperty, left);
+            _packNumberTb.SetValue(Canvas.TopProperty, top);
+            _packNumberTb.Text = _currentPackageNumber.ToString();
+            LayoutRoot.Children.Add(_packNumberTb);
 
             BackBtn.Width = HeightWidthConvter.Instance.BackBtnWdith;
             BackBtn.Height = HeightWidthConvter.Instance.CardSlotHeight;
@@ -72,27 +72,29 @@ namespace CustomOpenCards
         }
 
         #region 卡包拖拽的事件
-        bool isDragDropInEffect = false;
-        Point pos = new Point();
+        bool _isDragDropInEffect;
+        Point _pos;
 
         void Element_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragDropInEffect)
+            if (_isDragDropInEffect)
             {
                 FrameworkElement currEle = sender as FrameworkElement;
-                double xPos = e.GetPosition(null).X - pos.X + (double)currEle.GetValue(Canvas.LeftProperty);
-                double yPos = e.GetPosition(null).Y - pos.Y + (double)currEle.GetValue(Canvas.TopProperty);
+                if (currEle == null) return;
+                double xPos = e.GetPosition(null).X - _pos.X + (double)currEle.GetValue(Canvas.LeftProperty);
+                double yPos = e.GetPosition(null).Y - _pos.Y + (double)currEle.GetValue(Canvas.TopProperty);
                 currEle.SetValue(Canvas.LeftProperty, xPos);
                 currEle.SetValue(Canvas.TopProperty, yPos);
-                pos = e.GetPosition(null);
+                _pos = e.GetPosition(null);
             }
         }
 
         void Element_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement fEle = sender as FrameworkElement;
-            isDragDropInEffect = true;
-            pos = e.GetPosition(null);
+            if (fEle == null) return;
+            _isDragDropInEffect = true;
+            _pos = e.GetPosition(null);
             fEle.CaptureMouse();
 
         }
@@ -100,9 +102,10 @@ namespace CustomOpenCards
         void Element_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement ele = sender as FrameworkElement;
-            if (isDragDropInEffect)
+            if (ele == null) return;
+            if (_isDragDropInEffect)
             {
-                isDragDropInEffect = false;
+                _isDragDropInEffect = false;
                 ele.ReleaseMouseCapture();
             }
             var left = (double)ele.GetValue(Canvas.LeftProperty);
@@ -117,18 +120,18 @@ namespace CustomOpenCards
             {
                 ele.SetValue(Canvas.LeftProperty, HeightWidthConvter.Instance.CardSlotLeft + 20);
                 ele.SetValue(Canvas.TopProperty, HeightWidthConvter.Instance.CardSlotTop + 20);
-                CurrentPackageNumber--;
-                PackNumberTb.Text = CurrentPackageNumber.ToString();
-                if (CurrentPackageNumber < 2)
+                _currentPackageNumber--;
+                _packNumberTb.Text = _currentPackageNumber.ToString();
+                if (_currentPackageNumber < 2)
                 {
-                    PackNumberTb.Visibility = Visibility.Collapsed;
+                    _packNumberTb.Visibility = Visibility.Collapsed;
                 }
 
                 ele.Visibility = Visibility.Collapsed;
                 ShowCardsGrid.Width = LayoutRoot.ActualWidth;
                 ShowCardsGrid.Height = LayoutRoot.ActualHeight;
                 ShowCardsGrid.Visibility = Visibility.Visible;
-                var control = new ShowCards_Horizontal(CurrentProb, CurrentPackageType);
+                var control = new ShowCardsHorizontal(CurrentProb, CurrentPackageType);
                 control.CloseEvent += (o, b) => { ShowCardsGrid.Visibility = Visibility.Collapsed; };
                 ShowCardsControl.Content = control;
             }

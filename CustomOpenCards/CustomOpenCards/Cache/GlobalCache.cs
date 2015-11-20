@@ -69,6 +69,9 @@ namespace CustomOpenCards.Cache
             }
         }
 
+        /// <summary>
+        /// 当前的开包的模式，（标准模式，提升概率的模式）
+        /// </summary>
         public CardTypeProb CurrentCardTypeProb { get; set; }
     }
 }

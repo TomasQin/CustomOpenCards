@@ -1,33 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Media3D;
 using System.Windows.Media.Effects;
 using CustomOpenCards.Entity;
-using CustomOpenCards.BusinessLogic;
 
 namespace CustomOpenCards
 {
     /// <summary>
     /// Interaction logic for SingleCardControl.xaml
     /// </summary>
-    public partial class SingleCardControl : UserControl
+    public partial class SingleCardControl
     {
+        #region [Field]
         public event EventHandler FlipEvent;
-        private bool isFliped;
-        private Storyboard FlipSb;
-     
+        private bool _isFliped;
+        private Storyboard _flipSb;
+        #endregion
+
         public SingleCardControl(Card card)
         {
             InitializeComponent();
@@ -50,7 +41,7 @@ namespace CustomOpenCards
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            FlipSb = FindResource("fanzhuan") as Storyboard;
+            _flipSb = FindResource("fanzhuan") as Storyboard;
         }
 
         /// <summary>
@@ -63,8 +54,8 @@ namespace CustomOpenCards
             if (BackGridScaleTransform.ScaleX != 0)
             {
                 GridEffect.Opacity = 1;
-                FlipSb.Begin();
-                isFliped = true;
+                _flipSb.Begin();
+                _isFliped = true;
                 FlipEvent(sender, e);
             }
         }
@@ -76,7 +67,7 @@ namespace CustomOpenCards
         /// <param name="e"></param>
         private void MyGrid_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (!isFliped)
+            if (!_isFliped)
             {
                 ScaleEasingAnimation(MyGrid, 1, 1.05);
                 OpacityAnimation(GridEffect, 0, 1);
@@ -90,7 +81,7 @@ namespace CustomOpenCards
         /// <param name="e"></param>
         private void MyGrid_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (!isFliped)
+            if (!_isFliped)
             {
                 ScaleEasingAnimation(MyGrid, 1.05, 1);
                 OpacityAnimation(GridEffect, 1, 0);
@@ -115,9 +106,9 @@ namespace CustomOpenCards
             scale.ApplyAnimationClock(ScaleTransform.ScaleYProperty, clock);
         }
 
-        private void OpacityAnimation(DropShadowEffect GridEffect, int from, int to)
+        private void OpacityAnimation(DropShadowEffect gridEffect, int from, int to)
         {
-            DoubleAnimation scaleAnimation = new DoubleAnimation()
+            DoubleAnimation scaleAnimation = new DoubleAnimation
             {
                 From = from,                                 //起始值
                 To = to,                                     //结束值
@@ -125,7 +116,7 @@ namespace CustomOpenCards
                 Duration = new TimeSpan(0, 0, 0, 0, 600)    //动画播放时间
             };
             AnimationClock clock = scaleAnimation.CreateClock();
-            GridEffect.ApplyAnimationClock(DropShadowEffect.OpacityProperty, clock);
+            gridEffect.ApplyAnimationClock(DropShadowEffect.OpacityProperty, clock);
         }
         #endregion
     }

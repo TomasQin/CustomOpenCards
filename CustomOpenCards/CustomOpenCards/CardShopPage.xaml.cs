@@ -1,21 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CustomOpenCards.Cache;
-using CustomOpenCards.BusinessLogic.ProbabilityControl;
-using System.IO;
+﻿using System.Windows;
 using CustomOpenCards.BusinessLogic;
-using System.Reflection;
+using CustomOpenCards.BusinessLogic.ProbabilityControl;
 using CustomOpenCards.Entity;
 
 namespace CustomOpenCards
@@ -23,12 +8,12 @@ namespace CustomOpenCards
     /// <summary>
     /// Interaction logic for CardShopPage.xaml
     /// </summary>
-    public partial class CardShopPage : Page
+    public partial class CardShopPage 
     {
         public CardShopPage()
         {
             InitializeComponent();
-            Loaded += new RoutedEventHandler(CardShopPage_Loaded);
+            Loaded += CardShopPage_Loaded;
         }
 
         void CardShopPage_Loaded(object sender, RoutedEventArgs e)
@@ -39,7 +24,7 @@ namespace CustomOpenCards
         {
             CardTypeProb cardTypeProb;
             PackageType packageType;
-            int result = 0;
+            int result;
             var page = new OpenCardPage();
 
             switch (TypeCb.SelectedIndex)

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Resources;
+﻿using System.Collections;
 using System.Globalization;
-using System.Collections;
 using System.IO;
-
+using System.Resources;
 
 namespace TestProject
 {
@@ -14,9 +9,9 @@ namespace TestProject
     {
         public void Open()
         {
-            string resourceName = this.GetType().Assembly.GetName().Name + ".g";
+            string resourceName = GetType().Assembly.GetName().Name + ".g";
 
-            ResourceManager mgr = new ResourceManager(resourceName, this.GetType().Assembly);
+            ResourceManager mgr = new ResourceManager(resourceName, GetType().Assembly);
 
             using (ResourceSet set = mgr.GetResourceSet(CultureInfo.CurrentCulture, true, true))
             {

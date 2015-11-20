@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 
 namespace CustomOpenCards.Converter
 {
@@ -70,10 +67,10 @@ namespace CustomOpenCards.Converter
         }
 
 
-        public void Convter(double OriginalHeight, double OriginalWidth)
+        public void Convter(double originalHeight, double originalWidth)
         {
-            var heightRatio = OriginalHeight / 900;
-            var widthRatio = OriginalWidth / 1440;
+            var heightRatio = originalHeight / 900;
+            var widthRatio = originalWidth / 1440;
 
             PackageLeft = widthRatio * 150;
             PackageTop = heightRatio * 334;

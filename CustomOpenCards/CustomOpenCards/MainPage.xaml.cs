@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Navigation;
 using CustomOpenCards.Converter;
 
 namespace CustomOpenCards
@@ -12,7 +11,7 @@ namespace CustomOpenCards
         public MainPage()
         {
             InitializeComponent();
-            Loaded += new RoutedEventHandler(MainPage_Loaded);
+            Loaded += MainPage_Loaded;
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)

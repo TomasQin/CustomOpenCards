@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace CustomOpenCards.Entity
@@ -52,8 +48,6 @@ namespace CustomOpenCards.Entity
                     case OccupationalCategory.Worrior:
                         displayValue = "战士";
                         break;
-                    default:
-                        break;
                 }
                 return displayValue;
             }
@@ -63,7 +57,7 @@ namespace CustomOpenCards.Entity
         {
             get
             {
-                Color cardColor = Colors.Transparent; ;
+                Color cardColor = Colors.Transparent; 
                 switch (CardQualityType)
                 {
                     case CardQualityType.Legend:
@@ -77,8 +71,6 @@ namespace CustomOpenCards.Entity
                         break;
                     case CardQualityType.Normal:
                         cardColor = Colors.Transparent;
-                        break;
-                    default:
                         break;
                 }
                 return cardColor;
