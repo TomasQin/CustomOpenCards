@@ -73,8 +73,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ShowCards_Horizontal.xaml.cs">
-      <DependentUpon>ShowCards_Horizontal.xaml</DependentUpon>
+    <Compile Include="ShowCardsHorizontal.xaml.cs">
+      <DependentUpon>ShowCardsHorizontal.xaml</DependentUpon>
     </Compile>
     <Compile Include="SingleCardControl.xaml.cs">
       <DependentUpon>SingleCardControl.xaml</DependentUpon>
@@ -116,7 +116,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ShowCards_Horizontal.xaml">
+    <Page Include="ShowCardsHorizontal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

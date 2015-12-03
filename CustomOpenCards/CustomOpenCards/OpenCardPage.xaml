@@ -8,9 +8,9 @@
 	  Title="OpenCardPage" ShowsNavigationUI="False" Loaded="OpenCardPage_Loaded">
 
     <Grid x:Name="RootGrid">
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush ImageSource="Images\MainPage.png"/>
-        </Grid.Background>-->
+        </Grid.Background>
         <Canvas x:Name="LayoutRoot" >
 
             
