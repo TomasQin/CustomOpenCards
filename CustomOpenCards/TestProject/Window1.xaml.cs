@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using WpfApplication2;
 
 namespace TestProject
 {
@@ -58,10 +57,11 @@ namespace TestProject
                 FrameworkElement currEle = sender as FrameworkElement;
                 if (currEle == null) return;
                 double xPos = e.GetPosition(null).X - _pos.X + (double)currEle.GetValue(Canvas.LeftProperty);
+                var isShowLeft = e.GetPosition(null).X - _pos.X > 0;
                 double yPos = e.GetPosition(null).Y - _pos.Y + (double)currEle.GetValue(Canvas.TopProperty);
                 currEle.SetValue(Canvas.LeftProperty, xPos);
                 currEle.SetValue(Canvas.TopProperty, yPos);
-                GenerateStars(xPos, yPos);
+                GenerateStars(xPos, yPos, isShowLeft);
                 _pos = e.GetPosition(null);
             }
         }
@@ -76,19 +76,26 @@ namespace TestProject
 
         }
 
-        private void GenerateStars(double x, double y)
+        private void GenerateStars(double x, double y, bool isShowLeft)
         {
             for (int i = 0; i < 30; i++)
             {
                 var offsetX = _ran.Next(2, 15);
-                //var offsetX = _normalDistributionArray[i];
                 var control = new StarControl
                 {
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Top
                 };
                 _list.Add(control);
-                control.SetValue(Canvas.LeftProperty, x - offsetX);
+                if (isShowLeft)
+                {
+                    control.SetValue(Canvas.LeftProperty, x - offsetX);
+                }
+                else
+                {
+                    control.SetValue(Canvas.LeftProperty, x + offsetX + 100);
+                }
+                //control.SetValue(Canvas.LeftProperty, x + offsetX + 100);
                 control.SetValue(Canvas.TopProperty, y + _normalDistributionArray[i]);
                 RootCanvas.Children.Add(control);
             }

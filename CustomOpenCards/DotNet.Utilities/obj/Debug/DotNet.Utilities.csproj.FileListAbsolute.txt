@@ -1,0 +1,45 @@
+C:\Documents and Settings\Administrator\桌面\KyEshop\src\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\KyEshop\src\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\KyEshop\src\DotNet.Utilities\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\KyEshop\src\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\KyEshop\src\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\src\KY.Codes\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\src\KY.Codes\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\src\KY.Codes\DotNet.Utilities\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\src\KY.Codes\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\src\KY.Codes\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\DotNet工具集\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\DotNet工具集\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\DotNet工具集\DotNet.Utilities\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\DotNet工具集\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\DotNet工具集\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\DotNetUtilities\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\DotNetUtilities\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+C:\Documents and Settings\Administrator\桌面\DotNetUtilities\DotNet.Utilities\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\DotNetUtilities\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+C:\Documents and Settings\Administrator\桌面\DotNetUtilities\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+E:\source\dotnetcodes\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+E:\source\dotnetcodes\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+E:\source\dotnetcodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.csprojResolveAssemblyReference.cache
+E:\source\dotnetcodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+E:\source\dotnetcodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+E:\work\DotNetCodes\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+E:\work\DotNetCodes\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+E:\work\DotNetCodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+E:\work\DotNetCodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+G:\DotNetUntities\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+G:\DotNetUntities\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+G:\DotNetUntities\DotNet.Utilities\obj\Debug\DotNet.Utilities.csprojResolveAssemblyReference.cache
+G:\DotNetUntities\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+G:\DotNetUntities\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+G:\代码仓库\dotnetcodes\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+G:\代码仓库\dotnetcodes\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+G:\代码仓库\dotnetcodes\DotNet.Utilities\bin\Debug\ThoughtWorks.QRCode.dll
+G:\代码仓库\dotnetcodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.csprojResolveAssemblyReference.cache
+G:\代码仓库\dotnetcodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+G:\代码仓库\dotnetcodes\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\bin\Debug\DotNet.Utilities.dll
+D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\bin\Debug\DotNet.Utilities.pdb
+D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\bin\Debug\ThoughtWorks.QRCode.dll
+D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
+D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tabs>
+  <Tab Name="tab1" Visible="true" Label="贝格投资研究平台11">
+    <Group Name="templateDownload" Label="模板管理    " >
+      <Button Name="btnCompanyTemplateValuationUpload"   Label="估值模板上传" Visible="true" ImageSourceName="文件上传" ClickMethod="btnTemplateValuationUpload_Click"  IsNeedValidate="true" />
+      <Button Name="btnCompanyTemplateClassUpload"   Label="我的模板上传" Visible="true" ImageSourceName="文件上传" ClickMethod="btnTemplateUpload_Click"  IsNeedValidate="true" />
+      <Button Name="btnCompanyTemplateClassDownload"   Label="我的模板下载" Visible="true" ImageSourceName="我的模板下载" ClickMethod="btnTemplateClassDownload_Click"  IsNeedValidate="true" />
+      <Button Name="btnCompanyTemplateStandardDownload"   Label="标准模板下载" Visible="true" ImageSourceName="模板下载" ClickMethod="btnTemplateStandardDownload_Click"  IsNeedValidate="true" />
+      <Button Name="btnCompanyTemplateValuationDownload"   Label="估值模板下载" Visible="true" ImageSourceName="估值模板下载" ClickMethod="btnTemplateValuationDownload_Click"  IsNeedValidate="true" />
+    </Group>
+    <Group Name="gpDataWizard" Label="数据管理" Visible="true">
+      <Button Name="btnGTCWizard" Label="指标        " Visible="true" ImageSourceName="函数向导" ClickMethod="btnGetGTCWizard_Click" IsNeedValidate="true"></Button>
+      <Button Name="btnDIYWizard" Label="专题        " Visible="true" ImageSourceName="专题向导" ClickMethod="btnGetDIYWizard_Click" IsNeedValidate="true"></Button>
+      <Button Name="btnHistroyWizard" Label="历史行情        " Visible="true" ImageSourceName="行情" ClickMethod="btnGetHistroyWizard_Click" IsNeedValidate="true"></Button>
+      <Button Name="btnMarcoIndustryWizard" Label="宏观行业数据        " Visible="true" ImageSourceName="数据浏览器" ClickMethod="btnGetMarcoIndustryWizard_Click" IsNeedValidate="true"></Button>
+      <Button Name="Separator1" Type="Separator"></Button>
+      <Button Name="ribbonMenuRefresh" Type="SplitButton" Label="刷新" Visible="true" ImageSourceName="refresh"  IsNeedValidate="true" >
+        <SplitButtonItem  Name="ribbonMenuRefreshCell" Label="单元格刷新" Visible="true" ImageSourceName="refresh" ClickMethod="btnRefreshCell_Click" ></SplitButtonItem>
+        <SplitButtonItem  Name="ribbonMenuRefreshCurrent" Label="当前刷新" Visible="true" ImageSourceName="refresh" ClickMethod="btnRefreshCurrent_Click" ></SplitButtonItem>
+        <SplitButtonItem  Name="ribbonMenuRefreshAll" Label="全部刷新" Visible="true" ImageSourceName="refresh" ClickMethod="btnRefreshAll_Click" ></SplitButtonItem>
+      </Button>
+    </Group>
+
+    <Group Name="groupStyleManagement" Label="样式管理" Visible="false">
+      <Button Name="galleryStyleLinear" Type="RibbonGallery" Label="线形图              " isadmin="true" Visible="true" ImageSourceName="zoushidiejia"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" >
+        <RibbonGalleryItem  Name="ribbonLinear1" Label="单轴折线图" imgPath="Chart_big_02.jpg" crtPath="Chart_big_02.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear2" Label="双轴折线图"     imgPath="Chart_big_10.jpg" crtPath="Chart_big_10.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear3" Label="双轴一主折线图" imgPath="Chart_big_12.jpg" crtPath="Chart_big_12.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear4" Label="双轴一次折线图 "     imgPath="Chart_big_12.jpg" crtPath="Chart_big_18.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear5" Label="小单轴折线图 " imgPath="Chart_small_02.jpg" crtPath="Chart_small_02.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear6" Label="小双轴折线图 "     imgPath="Chart_small_10.jpg" crtPath="Chart_small_10.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear7" Label="小双轴一主折线图" imgPath="Chart_small_12.jpg" crtPath="Chart_small_12.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonLinear8" Label="小双轴一次折线图 "     imgPath="Chart_small_12.jpg" crtPath="Chart_small_18.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+
+      </Button>
+      <Button Name="galleryStyleColumn" Type="RibbonGallery" Label="柱状图    " isadmin="true" Visible="true" ImageSourceName="zhaiquan"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" >
+        <RibbonGalleryItem  Name="ribbonColumn1" Label="单轴柱状图"     imgPath="Chart_big_05.jpg" crtPath="Chart_big_05.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumn2" Label="单轴多柱比例图" imgPath="Chart_big_06.jpg" crtPath="Chart_big_06.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumn3" Label="单轴多主分类叠加图"     imgPath="Chart_big_07.jpg" crtPath="Chart_big_07.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumn4" Label="小单轴柱状图" imgPath="Chart_small_05.jpg" crtPath="Chart_small_05.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumn5" Label="小单轴多柱比例图"     imgPath="Chart_small_06.jpg" crtPath="Chart_small_06.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumn6" Label="小单轴多主分类叠加图" imgPath="Chart_small_07.jpg" crtPath="Chart_small_07.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+      </Button>
+      <Button Name="galleryStyleBar" Type="RibbonGallery" Label="条形图    " isadmin="true" Visible="true" ImageSourceName="tiaoxing"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" Enabled="false">
+        <RibbonGalleryItem  Name="ribbonBar1" Label="单轴条形图" imgPath="Chart_big_08.jpg" crtPath="Chart_big_08.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonBar2" Label="双轴条形图"     imgPath="Chart_big_09.jpg" crtPath="Chart_big_09.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonBar3" Label="小单轴条形图" imgPath="Chart_small_08.jpg" crtPath="Chart_small_08.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonBar4" Label="小双轴条形图"     imgPath="Chart_small_09.jpg" crtPath="Chart_small_09.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+      </Button>
+      <Button Name="galleryStylePie" Type="RibbonGallery" Label="饼状图    " isadmin="true" Visible="true" ImageSourceName="主营结构"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" Enabled="false">
+        <RibbonGalleryItem  Name="ribbonPie1" Label="平面饼状图" imgPath="Chart_big_14.jpg" crtPath="Chart_big_14.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonPie2" Label="立体饼状图"     imgPath="Chart_big_15.jpg" crtPath="Chart_big_15.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonPie3" Label="小平面饼状图" imgPath="Chart_small_14.jpg" crtPath="Chart_small_14.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonPie4" Label="小立体饼状图"     imgPath="Chart_small_15.jpg" crtPath="Chart_small_15.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+      </Button>
+      <Button Name="galleryStyleColumnLine" Type="RibbonGallery" Label="柱线组合图   " isadmin="true" Visible="true" ImageSourceName="图表样式"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" Enabled="false">
+        <RibbonGalleryItem  Name="ribbonColumnLine1" Label="单轴柱线图" imgPath="Chart_big_03.jpg" crtPath="Chart_big_03.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine2" Label="双轴柱线图"     imgPath="Chart_big_11.jpg" crtPath="Chart_big_13.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine3" Label="双轴一柱多线图" imgPath="Chart_big_11.jpg" crtPath="Chart_big_11.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine4" Label="双轴一线多柱图"     imgPath="Chart_big_19.jpg" crtPath="Chart_big_19.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine5" Label="小单轴柱线图" imgPath="Chart_small_03.jpg" crtPath="Chart_small_03.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine6" Label="小双轴柱线图"     imgPath="Chart_small_13.jpg" crtPath="Chart_small_13.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine7" Label="小双轴一柱多线图" imgPath="Chart_small_11.jpg" crtPath="Chart_small_11.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonColumnLine8" Label="小双轴一线多柱图"     imgPath="Chart_big_19.jpg" crtPath="Chart_small_19.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+
+      </Button>
+      <Button Name="galleryStyleScatterNoodles" Type="RibbonGallery" Label="散点及面积图    " isadmin="true" Visible="true" ImageSourceName="gupiao"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" Enabled="false">
+        <RibbonGalleryItem  Name="ribbonScatterNoodles1" Label="散点图" imgPath="Chart_big_16.jpg" crtPath="Chart_big_16.crtx" Width="408" Height="170" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonScatterNoodles2" Label="面积图"     imgPath="Chart_big_17.jpg" crtPath="Chart_big_17.crtx"  Width="408" Height="170"></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonScatterNoodles3" Label="小散点图" imgPath="Chart_small_16.jpg" crtPath="Chart_small_16.crtx" Width="228" Height="145" ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="ribbonScatterNoodles4" Label="小面积图"     imgPath="Chart_small_17.jpg" crtPath="Chart_small_17.crtx"  Width="228" Height="145"></RibbonGalleryItem>
+      </Button>
+      <Button Name="galleryStyleTable" Type="RibbonGallery" Label="表格样式" isadmin="true" Visible="true" ImageSourceName="excel_refresh"  LogicType="14" ClickMethod="btnTableStyle_Click" Width="150" Height="90" RowCount="5" Enabled="false">
+        <RibbonGalleryItem  Name="WideTableStyleName" Label="表格样式宽表" imgPath="WideTable.jpg"   ></RibbonGalleryItem>
+        <RibbonGalleryItem  Name="NarrowTableStyle" Label="表格样式窄表" imgPath="NarrowTable.jpg" ></RibbonGalleryItem>
+      </Button>
+      <Button Name="Separator2" Type="Separator"></Button>
+      <Button Name="galleryChartTableBigOrSmall" Type="SplitButton" Label="标准化大小" Visible="true" ImageSourceName="refresh_all"  IsNeedValidate="true" >
+        <SplitButtonItem  Name="ribbonChartTableBig" Label="调整为大图" Visible="true" ImageSourceName="refresh_all" ClickMethod="btnBigOrSmallChartTable_Click" Width="408" Height="170"></SplitButtonItem>
+        <SplitButtonItem  Name="ribbonChartTableSmall" Label="调整为小图" Visible="true" ImageSourceName="refresh_all" ClickMethod="btnBigOrSmallChartTable_Click" Width="228" Height="145"></SplitButtonItem>
+      </Button>
+      <Button Name="galleryChartTableColor" Type="SplitButton" Label="标准化颜色      " Visible="true" ImageSourceName="images_refresh"  IsNeedValidate="true" >
+        <SplitButtonItem  Name="GraphicalColor1" Label="橙灰间隔      " Visible="true" ImageSourceName="images_refresh" ClickMethod="btnSetChartTableColor_Click" SuperTip="橙灰橙灰橙灰橙灰" ></SplitButtonItem>
+        <SplitButtonItem  Name="GraphicalColor2" Label="灰橙间隔      " Visible="true" ImageSourceName="images_refresh" ClickMethod="btnSetChartTableColor_Click" SuperTip="灰橙灰橙灰橙灰橙"></SplitButtonItem>
+        <SplitButtonItem  Name="GraphicalColor3" Label="橙灰分布      " Visible="true" ImageSourceName="images_refresh" ClickMethod="btnSetChartTableColor_Click" SuperTip="橙橙灰灰橙橙灰灰"></SplitButtonItem>
+        <SplitButtonItem  Name="GraphicalColor4" Label="灰橙分布      " Visible="true" ImageSourceName="images_refresh" ClickMethod="btnSetChartTableColor_Click" SuperTip="灰灰橙橙灰灰橙橙"></SplitButtonItem>
+        <SplitButtonItem  Name="GraphicalColor5" Label="橙灰分隔      " Visible="true" ImageSourceName="images_refresh" ClickMethod="btnSetChartTableColor_Click" SuperTip="橙橙橙橙灰灰灰灰"></SplitButtonItem>
+        <SplitButtonItem  Name="GraphicalColor6" Label="灰橙分隔      " Visible="true" ImageSourceName="images_refresh" ClickMethod="btnSetChartTableColor_Click" SuperTip="灰灰灰灰橙橙橙橙"></SplitButtonItem>
+      </Button>
+      <Button Name="Separator3" Type="Separator"></Button>
+      <Button Name="btnChartTableStyle"   Label="图表样式" Visible="true" ImageSourceName="图形样式" ClickMethod="btnChartTableStyle_Click"  IsNeedValidate="true" />
+      <Button Name="btnDropDown" Type="DropDown" Label="DropDown" Visible="true"   ClickMethod="btnRefreshStyleManager_Click"  >
+        <DropDownItem  Label="1/2栏"/>
+        <DropDownItem  Label="2/3栏"/>
+        <DropDownItem  Label="通栏"/>
+      </Button>
+      <Button Name="btnChartTableStyleAdministration"   Label="图表样式管理" Visible="true" ImageSourceName="管理图表" ClickMethod="btnChartTableStyleAdministration_Click"  IsNeedValidate="true" />
+    </Group>
+
+    <Group Name="gpSystem" Label="系统    " Visible="true">
+      <Button Name="btnLoginI" Label="登录    " Visible="true" ImageSourceName="登录" ClickMethod="btnLoginI_Click" IsNeedValidate="false" LogicType="1"></Button>
+      <Button Name="btnAbout" Label="关于              " Visible="true"  IsNeedValidate="false" ImageSourceName="版本" ClickMethod="btnGetAbout_Click"  LogicType="5" ></Button>
+      <Button Name="btnUploadFileUse" Label="升级部署    " Visible="true" ImageSourceName="上传" ClickMethod="btnUploadFileUser_Click" IsNeedValidate="false" LogicType="1"></Button>
+    </Group>
+
+
+  </Tab>
+  <Tab Name="tab2" Visible="false">
+  </Tab>
+</Tabs>
