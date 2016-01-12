@@ -2,22 +2,21 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E0FE01DA-06A6-45E7-84D6-1A73D84AF4CF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}</ProjectGuid>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestProject</RootNamespace>
-    <AssemblyName>TestProject</AssemblyName>
+    <RootNamespace>CustomUI</RootNamespace>
+    <AssemblyName>CustomUI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,8 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -38,7 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -52,53 +49,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="StarControl.xaml.cs">
-      <DependentUpon>StarControl.xaml</DependentUpon>
+    <Compile Include="AuthorSelect\AuthorSelectControl.xaml.cs">
+      <DependentUpon>AuthorSelectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="AuthorSelect\Entitys\Author.cs" />
+    <Compile Include="AuthorSelect\Entitys\SelectedAuthorNode.cs" />
+    <Compile Include="AuthorSelect\NodeControl.xaml.cs">
+      <DependentUpon>NodeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window2.xaml.cs">
-      <DependentUpon>Window2.xaml</DependentUpon>
+    <Compile Include="Common\PropertyChangedBase.cs" />
+    <Compile Include="DateTimePickerGroup\DateTimePickerGroupControl.xaml.cs">
+      <DependentUpon>DateTimePickerGroupControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window3.xaml.cs">
-      <DependentUpon>Window3.xaml</DependentUpon>
+    <Compile Include="DateTimePickerGroup\DateTimePickerControl.xaml.cs">
+      <DependentUpon>DateTimePickerControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ImageManager.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="StarControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Window1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window3.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Common\ParameterBasicControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -123,27 +89,30 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GGGbbb.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Page Include="AuthorSelect\AuthorSelectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AuthorSelect\NodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DateTimePickerGroup\DateTimePickerGroupControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DateTimePickerGroup\DateTimePickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomUI\CustomUI.csproj">
-      <Project>{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}</Project>
-      <Name>CustomUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PanelBusniessLogic\PanelBusniessLogic.csproj">
-      <Project>{0729BDA1-3F3B-4D96-AEB9-B94B32053214}</Project>
-      <Name>PanelBusniessLogic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XmlFileTransferHandle\XmlFileTransferHandle.csproj">
       <Project>{57C4A556-1C76-4C49-8029-B3ED28840873}</Project>
       <Name>XmlFileTransferHandle</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

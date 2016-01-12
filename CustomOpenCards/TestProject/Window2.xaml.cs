@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Win32Hook;
-using XmlFileTransferHandle;
-using XmlFileTransferHandle.XmlEntitys.MenuDefEntity;
+
+using XmlFileTransferHandle.XmlEntitys;
+using PanelBusniessLogic;
 
 namespace TestProject
 {
@@ -30,24 +23,20 @@ namespace TestProject
 
         void Window2_Loaded(object sender, RoutedEventArgs e)
         {
-            var hook = new Hook();
+           
+        }
 
-            hook.Start();
-            //var aaa = "abcdefghj";
 
-            //var list = new List<string>();
-            //if (list.Any(item => aaa.Contains(item)))
-            //{
-            //    return ;
-            //}
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var t1 = DateTime.Now;
+            var aa = new ParametersManagement();
+            var ss = aa.Init();
+          
+           RootGrid.Children.Add(ss);
+            var t2 = DateTime.Now;
 
-            //using (FileStream fs = new FileStream("MenuDef.xml", FileMode.Open))
-            //{
-            //    StreamReader sr = new StreamReader(fs, Encoding.Default);
-            //    String xmlInfo = sr.ReadToEnd();
-            //    sr.Close();
-            //    var root = XmlSerialize.DeserializeXml<Tabs>(xmlInfo);
-            //}
+            var tpSpan= t1.CompareTo(t2);
         }
     }
 }

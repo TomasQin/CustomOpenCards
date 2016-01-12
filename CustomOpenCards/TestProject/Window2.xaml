@@ -1,8 +1,20 @@
 ﻿<Window x:Class="TestProject.Window2"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:testProject="clr-namespace:TestProject"
+        xmlns:authorSelect="clr-namespace:CustomUI.AuthorSelect;assembly=CustomUI"
         Title="Window2" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <Button Content="aa" Click="ButtonBase_OnClick"></Button>
+        <Grid x:Name="RootGrid">
+            <!--<StackPanel>
+            <Button Height="28"></Button>
+            <authorSelect:AuthorSelectControl Margin="0,6"/>
+            <TextBox Height="28" Margin="0,6"></TextBox>
+            <TextBox Height="28" Margin="0,6"></TextBox>
+            <DatePicker></DatePicker>
+        </StackPanel>-->
+
+        </Grid>
+    </StackPanel>
 </Window>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tabs>
   <Tab Name="tab1" Visible="true" Label="贝格投资研究平台11">
-    <Group Name="templateDownload" Label="模板管理    " >
+    <Group Name="templateDownload" Label="模板管理    " Visible="true">
       <Button Name="btnCompanyTemplateValuationUpload"   Label="估值模板上传" Visible="true" ImageSourceName="文件上传" ClickMethod="btnTemplateValuationUpload_Click"  IsNeedValidate="true" />
       <Button Name="btnCompanyTemplateClassUpload"   Label="我的模板上传" Visible="true" ImageSourceName="文件上传" ClickMethod="btnTemplateUpload_Click"  IsNeedValidate="true" />
       <Button Name="btnCompanyTemplateClassDownload"   Label="我的模板下载" Visible="true" ImageSourceName="我的模板下载" ClickMethod="btnTemplateClassDownload_Click"  IsNeedValidate="true" />
@@ -21,7 +21,7 @@
       </Button>
     </Group>
 
-    <Group Name="groupStyleManagement" Label="样式管理" Visible="false">
+    <Group Name="groupStyleManagement" Label="样式管理" Visible="true">
       <Button Name="galleryStyleLinear" Type="RibbonGallery" Label="线形图              " isadmin="true" Visible="true" ImageSourceName="zoushidiejia"  LogicType="14" ClickMethod="btnGalleryChartStyle_Click" Width="150" Height="90" RowCount="5" >
         <RibbonGalleryItem  Name="ribbonLinear1" Label="单轴折线图" imgPath="Chart_big_02.jpg" crtPath="Chart_big_02.crtx" Width="408" Height="170" ></RibbonGalleryItem>
         <RibbonGalleryItem  Name="ribbonLinear2" Label="双轴折线图"     imgPath="Chart_big_10.jpg" crtPath="Chart_big_10.crtx"  Width="408" Height="170"></RibbonGalleryItem>
@@ -102,8 +102,8 @@
       <Button Name="btnAbout" Label="关于              " Visible="true"  IsNeedValidate="false" ImageSourceName="版本" ClickMethod="btnGetAbout_Click"  LogicType="5" ></Button>
       <Button Name="btnUploadFileUse" Label="升级部署    " Visible="true" ImageSourceName="上传" ClickMethod="btnUploadFileUser_Click" IsNeedValidate="false" LogicType="1"></Button>
     </Group>
-
-
+    
+    
   </Tab>
   <Tab Name="tab2" Visible="false">
   </Tab>
