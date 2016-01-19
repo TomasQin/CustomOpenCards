@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Utilities", "DotNet.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomUI", "CustomUI\CustomUI.csproj", "{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanelBusniessLogic", "PanelBusniessLogic\PanelBusniessLogic.csproj", "{0729BDA1-3F3B-4D96-AEB9-B94B32053214}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,16 +71,6 @@ Global
 		{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}.Release|x86.ActiveCfg = Release|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0729BDA1-3F3B-4D96-AEB9-B94B32053214}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

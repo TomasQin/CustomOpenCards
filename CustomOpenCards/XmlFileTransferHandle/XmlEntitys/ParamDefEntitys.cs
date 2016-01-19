@@ -30,14 +30,39 @@ namespace XmlFileTransferHandle.XmlEntitys
         [XmlAttribute]
         public string DataSourceID;
 
+        [XmlAttribute]
+        public string ParentID;
+
+        [XmlAttribute]
+        public string ChildID;
+
         [XmlElement]
         public List<AuthorNodeItem> AuthorNodeItem;
 
         [XmlElement]
         public List<DatePickerItem> DatePickerItem;
 
-    }
+        //判断参数是否显示captionlabel
+        public bool IsCaptionLabelNeeded
+        {
+            get
+            {
+                bool isNeeded;
+                switch (Type)
+                {
+                    case ParamControlType.DateTimePickerGroupControl:
+                        isNeeded = false;
+                        break;
+                    default:
+                        isNeeded = true;
+                        break;
+                }
+                return isNeeded;
 
+            }
+        }
+
+    }
 
     public class AuthorNodeItem
     {

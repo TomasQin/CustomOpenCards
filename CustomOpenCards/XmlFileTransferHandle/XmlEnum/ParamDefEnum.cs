@@ -5,7 +5,8 @@ namespace XmlFileTransferHandle.XmlEnum
     public enum ParamControlType
     {
         AuthorSelectControl,
-        DateTimePickerGroup
+        DateTimePickerGroupControl,
+        ParameterCombobox
     }
 
     public enum DateTimePickerType

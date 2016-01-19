@@ -4,9 +4,8 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-
-using XmlFileTransferHandle.XmlEntitys;
-using PanelBusniessLogic;
+using CustomUI.PannelBL;
+using CustomUI.PannelControls;
 
 namespace TestProject
 {
@@ -23,20 +22,21 @@ namespace TestProject
 
         void Window2_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            //ParametersManagement.CurrentUiDispatcher = Dispatcher;
+            //ParametersManagement.Init();
         }
 
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var t1 = DateTime.Now;
-            var aa = new ParametersManagement();
-            var ss = aa.Init();
-          
-           RootGrid.Children.Add(ss);
-            var t2 = DateTime.Now;
+            var aa = new ParameterPannelControl();
+            RootGrid1.Children.Add(aa);
+        }
 
-            var tpSpan= t1.CompareTo(t2);
+        private void ButtonBase1_OnClick(object sender, RoutedEventArgs e)
+        {
+            var aa = new ParameterPannelControl();
+            RootGrid2.Children.Add(aa);
         }
     }
 }

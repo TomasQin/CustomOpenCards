@@ -1,7 +1,6 @@
 ﻿<Window x:Class="TestProject.Window3"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:authorSelect="clr-namespace:CustomUI.AuthorSelect;assembly=CustomUI"
         Title="Window3" Height="300" Width="300">
     <Grid x:Name="RootGrid">
       <DatePicker x:Name="Picker" SelectedDateChanged="Picker_OnSelectedDateChanged"></DatePicker>

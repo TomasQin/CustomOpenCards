@@ -132,10 +132,6 @@
       <Project>{C89BD0A0-644C-4EFF-97B9-CAE2402E0E17}</Project>
       <Name>CustomUI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PanelBusniessLogic\PanelBusniessLogic.csproj">
-      <Project>{0729BDA1-3F3B-4D96-AEB9-B94B32053214}</Project>
-      <Name>PanelBusniessLogic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XmlFileTransferHandle\XmlFileTransferHandle.csproj">
       <Project>{57C4A556-1C76-4C49-8029-B3ED28840873}</Project>
       <Name>XmlFileTransferHandle</Name>

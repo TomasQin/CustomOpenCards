@@ -49,22 +49,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorSelect\AuthorSelectControl.xaml.cs">
+    <Compile Include="Common\AdvancedPropertyHelp.cs" />
+    <Compile Include="Entitys\LinkInfoItem.cs" />
+    <Compile Include="Common\IParameterInterface.cs" />
+    <Compile Include="Common\ParameterBasicControl.cs" />
+    <Compile Include="Controls\AuthorSelect\AuthorSelectControl.xaml.cs">
       <DependentUpon>AuthorSelectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AuthorSelect\Entitys\Author.cs" />
-    <Compile Include="AuthorSelect\Entitys\SelectedAuthorNode.cs" />
-    <Compile Include="AuthorSelect\NodeControl.xaml.cs">
+    <Compile Include="Entitys\Author.cs" />
+    <Compile Include="Entitys\SelectedAuthorNode.cs" />
+    <Compile Include="Controls\AuthorSelect\NodeControl.xaml.cs">
       <DependentUpon>NodeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\PropertyChangedBase.cs" />
-    <Compile Include="DateTimePickerGroup\DateTimePickerGroupControl.xaml.cs">
+    <Compile Include="Controls\CustomCombobox.cs" />
+    <Compile Include="Controls\DateTimePickerGroup\DateTimePickerGroupControl.xaml.cs">
       <DependentUpon>DateTimePickerGroupControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DateTimePickerGroup\DateTimePickerControl.xaml.cs">
-      <DependentUpon>DateTimePickerControl.xaml</DependentUpon>
+    <Compile Include="PannelBL\ParametersManagement.cs" />
+    <Compile Include="Entitys\ParameterItemEntity.cs" />
+    <Compile Include="PannelControls\ParameterPannelControl.xaml.cs">
+      <DependentUpon>ParameterPannelControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\ParameterBasicControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -89,19 +95,19 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AuthorSelect\AuthorSelectControl.xaml">
+    <Page Include="Controls\AuthorSelect\AuthorSelectControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AuthorSelect\NodeControl.xaml">
+    <Page Include="Controls\AuthorSelect\NodeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DateTimePickerGroup\DateTimePickerGroupControl.xaml">
+    <Page Include="Controls\DateTimePickerGroup\DateTimePickerGroupControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DateTimePickerGroup\DateTimePickerControl.xaml">
+    <Page Include="PannelControls\ParameterPannelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

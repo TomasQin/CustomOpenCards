@@ -1,12 +1,32 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using XmlFileTransferHandle.XmlEntitys;
 
 namespace CustomUI.Common
 {
-    public interface IParameterInterface
+    public class ParameterBasicControl : UserControl, IParameterBasicInterface
     {
-        FrameworkElement GenerateControlInstance(Param param);
+        public Param ParamItem { get; set; }
 
-        void SaveParameter();
+        public virtual void ObtainParameters(Param item)
+        {
+            ParamItem = item;
+        }
+
+        public virtual void SaveParameter()
+        {
+
+        }
+
+        public virtual void InitData()
+        {
+
+        }
+
+        public virtual void ReLoadData(object param)
+        {
+
+        }
+
     }
 }
