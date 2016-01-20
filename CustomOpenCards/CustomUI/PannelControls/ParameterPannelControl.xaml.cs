@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using CustomUI.PannelBL;
 
 namespace CustomUI.PannelControls
@@ -19,9 +21,11 @@ namespace CustomUI.PannelControls
 
         private void ParameterPannelControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Savebtn.IsEnabled = false;
+            Refreshbtn.IsEnabled = false;
             _parametersManagement = new ParametersManagement();
             _parametersManagement.Init(Dispatcher);
-
+            _parametersManagement.DataLoadedEventHandler += _parametersManagement_DataLoadedEventHandler;
             foreach (var item in _parametersManagement.GetCurrentControls())
             {
                 var control = new ContentControl();
@@ -39,7 +43,17 @@ namespace CustomUI.PannelControls
             }
             _parametersManagement.InitControlData();
         }
-         
+
+        private void _parametersManagement_DataLoadedEventHandler(object sender, EventArgs e)
+        {
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                Savebtn.IsEnabled = true;
+                Refreshbtn.IsEnabled = true;
+            }));
+
+        }
+
         private void SaveBtn_OnClick(object sender, RoutedEventArgs e)
         {
             _parametersManagement.SaveParameter();

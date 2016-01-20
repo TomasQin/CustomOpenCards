@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using CustomUI.Interface;
 using XmlFileTransferHandle.XmlEntitys;
 
 namespace CustomUI.Common

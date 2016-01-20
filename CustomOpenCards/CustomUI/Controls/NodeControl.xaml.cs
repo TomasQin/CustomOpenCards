@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using CustomUI.Entitys;
 
-namespace CustomUI.Controls.AuthorSelect
+namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for ResearcherListControl.xaml
@@ -77,6 +79,10 @@ namespace CustomUI.Controls.AuthorSelect
 
         }
 
+        public List<Author> GetData()
+        {
+            return _authorList.ToList();
+        }
         #region [Private Method]
 
         private readonly ObservableCollection<Author> _authorList;

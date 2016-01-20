@@ -7,9 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using CustomUI.Common;
 using CustomUI.Controls;
-using CustomUI.Controls.AuthorSelect;
-using CustomUI.Controls.DateTimePickerGroup;
 using CustomUI.Entitys;
+using CustomUI.Interface;
 using XmlFileTransferHandle;
 using XmlFileTransferHandle.XmlEntitys;
 using XmlFileTransferHandle.XmlEnum;
@@ -19,18 +18,67 @@ namespace CustomUI.PannelBL
     public class ParametersManagement
     {
         #region [Field]
-        private readonly List<IParameterBasicInterface> _currentControlList = new List<IParameterBasicInterface>();
-        private readonly Dictionary<string, IParameterBasicInterface> _totalControlList = new Dictionary<string, IParameterBasicInterface>();
-        private Thread _initControlDataThread;
+        private readonly List<IParameterBasicInterface> _currentControlList;
+        private readonly Dictionary<string, IParameterBasicInterface> _totalControlList;
+        private readonly Thread _initControlDataThread;
         private Dispatcher _currentUiDispatcher;
-        private Params _rootParams;
+        private Params _paramsRoot;
         #endregion
 
+        #region[Event]
+        public event EventHandler DataLoadedEventHandler;
+        private void OnDataLoadedEventHandler()
+        {
+            var handler = DataLoadedEventHandler;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
+        #endregion
+
+        public ParametersManagement()
+        {
+            _currentControlList = new List<IParameterBasicInterface>();
+            _totalControlList = new Dictionary<string, IParameterBasicInterface>();
+
+            _initControlDataThread = new Thread(() =>
+            {
+                //先初始化所有控件的datasource
+                foreach (var item in _currentControlList)
+                {
+                    Thread.Sleep(500);
+                    var item1 = item;
+
+                    _currentUiDispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                    {
+                        item1.InitData();
+                    }));
+                }
+               //关联控件再根据被关联的控件默认值去取默认显示的值
+                foreach (var item in _currentControlList)
+                {
+                    Thread.Sleep(500);
+                    var relatedControl = item as IParameterRelatedInterface;
+                    if (relatedControl != null)
+                    {
+                        _currentUiDispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                        {
+                            relatedControl.ReLoadData();
+                        }));
+                    }
+                }
+                OnDataLoadedEventHandler();
+            });
+        }
+
+        /// <summary>
+        /// 创建在配置文件里所有的参数控件的实例
+        /// </summary>
+        /// <param name="currentUiDispatcher"></param>
         public void Init(Dispatcher currentUiDispatcher)
         {
             _currentUiDispatcher = currentUiDispatcher;
-            _rootParams = XmlSerialize.GetSerializeResult<Params>(@"XmlFiles\Paramdef.xml");
-            foreach (var item in _rootParams.Param)
+            _paramsRoot = XmlSerialize.GetSerializeResult<Params>(@"XmlFiles\Paramdef.xml");
+            foreach (var item in _paramsRoot.Param)
             {
                 IParameterBasicInterface control = null;
                 switch (item.Type)
@@ -57,36 +105,12 @@ namespace CustomUI.PannelBL
         /// </summary>
         public void InitControlData()
         {
-            //todo 写一个线程管理的类
-            _initControlDataThread = new Thread(() =>
-            {
-                foreach (var item in _currentControlList)
-                {
-                    Thread.Sleep(500);
-                    var item1 = item;
-
-                    _currentUiDispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
-                    {
-                        item1.InitData();
-                    }));
-                }
-                foreach (var item in _currentControlList)
-                {
-                    Thread.Sleep(500);
-                    var relatedControl = item as IParameterRelatedInterface;
-                    if (relatedControl != null)
-                    {
-                        _currentUiDispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
-                        {
-                            relatedControl.ReLoadData();
-                        }));
-                    }
-                }
-            });
             _initControlDataThread.Start();
-
         }
 
+        /// <summary>
+        /// 保存当前模板对应的参数
+        /// </summary>
         public void SaveParameter()
         {
             //如果有效率问题也可以改为后台线程进行保存
@@ -96,11 +120,15 @@ namespace CustomUI.PannelBL
             }
         }
 
+        /// <summary>
+        /// 根据当前模板的高级属性来加载对应显示的参数
+        /// </summary>
+        /// <returns></returns>
         public List<ParameterItemEntity> GetCurrentControls()
         {
             var list = new List<ParameterItemEntity>();
 
-            if (_rootParams.ShowAllParams)
+            if (_paramsRoot.ShowAllParams)
             {
                 foreach (var item in _totalControlList)
                 {
@@ -132,6 +160,7 @@ namespace CustomUI.PannelBL
             return list;
         }
 
+        #region [Private Method]
         private void BuildControlsRelationship(IParameterBasicInterface control)
         {
             var parentLinkInfo = AnalysisLinkInfo(control.ParamItem.ParentID);
@@ -198,8 +227,7 @@ namespace CustomUI.PannelBL
                 return default(T);
             }
         }
+        #endregion
 
     }
-
-
 }

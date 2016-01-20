@@ -38,8 +38,8 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,12">
-            <Button Content="Save" Width="120" Click="SaveBtn_OnClick"></Button>
-            <Button Content="Refresh Document" Width="120" Margin="12,0,0,0"></Button>
+            <Button x:Name="Savebtn" Content="Save" Width="120" Click="SaveBtn_OnClick"></Button>
+            <Button  x:Name="Refreshbtn" Content="Refresh Document" Width="120" Margin="12,0,0,0"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -5,7 +5,7 @@ using CustomUI.Entitys;
 using XmlFileTransferHandle.XmlEntitys;
 using XmlFileTransferHandle.XmlEnum;
 
-namespace CustomUI.Controls.DateTimePickerGroup
+namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for DateTimePickerControl.xaml

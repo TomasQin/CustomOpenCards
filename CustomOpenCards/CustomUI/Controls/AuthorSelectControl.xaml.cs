@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CustomUI.Entitys;
 
-namespace CustomUI.Controls.AuthorSelect
+namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
@@ -26,6 +26,10 @@ namespace CustomUI.Controls.AuthorSelect
 
         public override void SaveParameter()
         {
+            foreach (var item in NodeControlList)
+            {
+                item.Save();
+            }
         }
 
         public override void InitData()
@@ -44,6 +48,7 @@ namespace CustomUI.Controls.AuthorSelect
 
             Nodes = ParamItem.AuthorNodeItem.Select(item => new SelectedAuthorNode(item.Caption)).ToList();
 
+
             AuthorListBox.ItemsSource = AuthorList;
             SelectedPopup.Height = Nodes.Count * 110 + 38;
 
@@ -60,12 +65,45 @@ namespace CustomUI.Controls.AuthorSelect
 
         #region [Private Method]
 
-        private void SaveBtn_OnClick(object sender, RoutedEventArgs e)
+        private void ShowPopupBtn_OnClick(object sender, RoutedEventArgs e)
         {
+            SelectedPopup.IsOpen = true;
+        }
+
+        private void OkBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            var list = new List<Author>();
             foreach (var item in NodeControlList)
             {
-                item.Save();
+                list.AddRange(item.GetData());
             }
+            if (list.Count < 1) return;
+
+            var displayName = string.Empty;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (i == 0)
+                {
+                    displayName = list[i].Name;
+                }
+                else
+                {
+                    if (i > 2)
+                    {
+                        displayName = string.Format("{0}...", displayName);
+                        break;
+                    }
+                    displayName = string.Format("{0},{1}", displayName, list[i].Name);
+                }
+            }
+
+            ContentLabel.Content = displayName;
+            SelectedPopup.IsOpen = false;
+        }
+
+        private void CancelBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            SelectedPopup.IsOpen = false;
         }
 
         private void SearchBtn_OnClick(object sender, RoutedEventArgs e)
@@ -85,16 +123,6 @@ namespace CustomUI.Controls.AuthorSelect
                     item.IsVisible = item.PyName.ToLower().Contains(searchText.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
                 }
             }
-        }
-
-        private void ShowPopupBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            SelectedPopup.IsOpen = true;
-        }
-
-        private void CancelBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            SelectedPopup.IsOpen = false;
         }
 
         /// <summary>
@@ -166,6 +194,6 @@ namespace CustomUI.Controls.AuthorSelect
         }
         #endregion
 
-
+      
     }
 }
