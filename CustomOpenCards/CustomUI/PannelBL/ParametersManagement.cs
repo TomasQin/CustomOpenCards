@@ -84,7 +84,7 @@ namespace CustomUI.PannelBL
                 switch (item.Type)
                 {
                     case ParamControlType.AuthorSelectControl:
-                        control = new AuthorSelectControl();
+                        control = new ListMemberSelectControl();
                         break;
                     case ParamControlType.DateTimePickerGroupControl:
                         control = new DateTimePickerGroupControl();

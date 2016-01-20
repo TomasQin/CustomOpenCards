@@ -1,10 +1,9 @@
 ﻿
 namespace CustomUI.Entitys
 {
-
-    public class SelectedAuthorNode
+    public class SelectedMemberItemNode
     {
-        public SelectedAuthorNode(string name)
+        public SelectedMemberItemNode(string name)
         {
             NodeName = name;
         }

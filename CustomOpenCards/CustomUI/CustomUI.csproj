@@ -54,14 +54,19 @@
     <Compile Include="Controls\CommonControls\CustomDropDwonControl.xaml.cs">
       <DependentUpon>CustomDropDwonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CommonControls\PopupNonTopmost.cs" />
+    <Compile Include="Controls\TreeViewMemberSelectControl.xaml.cs">
+      <DependentUpon>TreeViewMemberSelectControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Entitys\LinkInfoItem.cs" />
+    <Compile Include="Entitys\TreeNode.cs" />
     <Compile Include="Interface\IParameterInterface.cs" />
     <Compile Include="Common\ParameterBasicControl.cs" />
-    <Compile Include="Controls\AuthorSelectControl.xaml.cs">
-      <DependentUpon>AuthorSelectControl.xaml</DependentUpon>
+    <Compile Include="Controls\ListMemberSelectControl.xaml.cs">
+      <DependentUpon>ListMemberSelectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Entitys\Author.cs" />
-    <Compile Include="Entitys\SelectedAuthorNode.cs" />
+    <Compile Include="Entitys\ListMemberItem.cs" />
+    <Compile Include="Entitys\SelectedMemberItemNode.cs" />
     <Compile Include="Controls\NodeControl.xaml.cs">
       <DependentUpon>NodeControl.xaml</DependentUpon>
     </Compile>
@@ -100,7 +105,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\AuthorSelectControl.xaml">
+    <Page Include="Controls\ListMemberSelectControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -115,6 +120,10 @@
     <Page Include="Controls\DateTimePickerGroupControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TreeViewMemberSelectControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PannelControls\ParameterPannelControl.xaml">
       <SubType>Designer</SubType>

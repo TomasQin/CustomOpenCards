@@ -3,9 +3,9 @@ using CustomUI.Common;
 
 namespace CustomUI.Entitys
 {
-    public class Author : PropertyChangedBase
+    public class ListMemberItem : PropertyChangedBase
     {
-        public Author(string name, string pyName)
+        public ListMemberItem(string name, string pyName)
         {
             Name = name;
             PyName = pyName;

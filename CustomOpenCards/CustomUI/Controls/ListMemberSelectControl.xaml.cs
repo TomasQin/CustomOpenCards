@@ -10,15 +10,15 @@ namespace CustomUI.Controls
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class AuthorSelectControl
+    public partial class ListMemberSelectControl
     {
         #region [Field]
-        private List<SelectedAuthorNode> Nodes { get; set; }
-        private List<Author> AuthorList { get; set; }
+        private List<SelectedMemberItemNode> Nodes { get; set; }
+        private List<ListMemberItem> AuthorList { get; set; }
         private List<NodeControl> NodeControlList { get; set; }
         #endregion
 
-        public AuthorSelectControl()
+        public ListMemberSelectControl()
         {
             InitializeComponent();
             NodeControlList = new List<NodeControl>();
@@ -35,18 +35,18 @@ namespace CustomUI.Controls
         public override void InitData()
         {
             //todo 根据sourceID来去查DB
-            AuthorList = new List<Author>()
+            AuthorList = new List<ListMemberItem>()
             {
-                new Author("孙传芳", "SCF"),
-                new Author("吴佩浮", "WPF"),
-                new Author("阎锡山", "YXS"),
-                new Author("张作霖", "ZZL"),
-                new Author("袁世凯", "YSK"),
-                new Author("孙中山", "SZS"),
-                new Author("蔡锷", "CE")
+                new ListMemberItem("孙传芳", "SCF"),
+                new ListMemberItem("吴佩浮", "WPF"),
+                new ListMemberItem("阎锡山", "YXS"),
+                new ListMemberItem("张作霖", "ZZL"),
+                new ListMemberItem("袁世凯", "YSK"),
+                new ListMemberItem("孙中山", "SZS"),
+                new ListMemberItem("蔡锷", "CE")
             };
 
-            Nodes = ParamItem.AuthorNodeItem.Select(item => new SelectedAuthorNode(item.Caption)).ToList();
+            Nodes = ParamItem.AuthorNodeItem.Select(item => new SelectedMemberItemNode(item.Caption)).ToList();
 
 
             AuthorListBox.ItemsSource = AuthorList;
@@ -72,7 +72,7 @@ namespace CustomUI.Controls
 
         private void OkBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            var list = new List<Author>();
+            var list = new List<ListMemberItem>();
             foreach (var item in NodeControlList)
             {
                 list.AddRange(item.GetData());
@@ -132,7 +132,7 @@ namespace CustomUI.Controls
         /// <param name="e"></param>
         private void LeftMoveBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Author tagetAuthor = null;
+            ListMemberItem tagetAuthor = null;
             foreach (var item in NodeControlList)
             {
                 var authorItem = item.RemoveItem();
@@ -156,7 +156,7 @@ namespace CustomUI.Controls
         /// <param name="e"></param>
         private void RightMoveBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            var item = AuthorListBox.SelectedItem as Author;
+            var item = AuthorListBox.SelectedItem as ListMemberItem;
             if (item == null) return;
             item.IsVisible = Visibility.Collapsed;
             NodeControlList.ForEach(p => p.AddItem(item));

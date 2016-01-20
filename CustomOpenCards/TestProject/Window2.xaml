@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:testProject="clr-namespace:TestProject"
         xmlns:pannelControls="clr-namespace:CustomUI.PannelControls;assembly=CustomUI"
+        xmlns:controls="clr-namespace:CustomUI.Controls;assembly=CustomUI"
         Title="Window2" Height="300" Width="300">
     <Grid >
         <Grid.ColumnDefinitions>
@@ -11,6 +12,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel>
+            <controls:TreeViewMemberSelectControl/>
             <Button Content="aa" Click="ButtonBase_OnClick"></Button>
             <Grid x:Name="RootGrid1">
                 <!--<pannelControls:ParameterPannelControl/>-->

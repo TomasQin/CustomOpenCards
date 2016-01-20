@@ -18,24 +18,24 @@ namespace CustomUI.Controls
         {
             InitializeComponent();
             //在popup中显示的缘故，如果放在loaded事件中会触发多次(popup 每显示一次就会触发loaded事件)
-            _authorList = new ObservableCollection<Author>();
+            _authorList = new ObservableCollection<ListMemberItem>();
             SelectedListBox.ItemsSource = _authorList;
             CurrentSelectBtn.Content = name;
             CurrentSelectBtn.IsChecked = ischecked;
 
         }
 
-        public void AddItem(Author authorItem)
+        public void AddItem(ListMemberItem authorItem)
         {
             if (!CurrentSelectBtn.IsChecked.GetValueOrDefault()) return;
             _authorList.Add(authorItem);
             SelectedListBox.SelectedItem = authorItem;
         }
 
-        public Author RemoveItem()
+        public ListMemberItem RemoveItem()
         {
             if (!CurrentSelectBtn.IsChecked.GetValueOrDefault()) return null;
-            var item = SelectedListBox.SelectedItem as Author;
+            var item = SelectedListBox.SelectedItem as ListMemberItem;
             _authorList.Remove(item);
             //删除元素之后，默认选择第一个元素（视以后的业务需求来改动）
             SelectedListBox.SelectedIndex = 0;
@@ -79,13 +79,13 @@ namespace CustomUI.Controls
 
         }
 
-        public List<Author> GetData()
+        public List<ListMemberItem> GetData()
         {
             return _authorList.ToList();
         }
         #region [Private Method]
 
-        private readonly ObservableCollection<Author> _authorList;
+        private readonly ObservableCollection<ListMemberItem> _authorList;
 
         private void SelectedListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -98,10 +98,10 @@ namespace CustomUI.Controls
 
     public class AuthorEventArgs : EventArgs
     {
-        public AuthorEventArgs(Author enitiy)
+        public AuthorEventArgs(ListMemberItem enitiy)
         {
             AuthorEnitiy = enitiy;
         }
-        public Author AuthorEnitiy { get; set; }
+        public ListMemberItem AuthorEnitiy { get; set; }
     }
 }

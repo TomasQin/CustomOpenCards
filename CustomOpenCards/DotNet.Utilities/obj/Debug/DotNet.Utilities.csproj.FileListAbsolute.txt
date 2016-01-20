@@ -43,3 +43,4 @@ D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\bin\Debug\DotNet.Utilities.p
 D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\bin\Debug\ThoughtWorks.QRCode.dll
 D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\obj\Debug\DotNet.Utilities.dll
 D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\obj\Debug\DotNet.Utilities.pdb
+D:\CustomOpenCards\CustomOpenCards\DotNet.Utilities\obj\Debug\DotNet.Utilities.csprojResolveAssemblyReference.cache
