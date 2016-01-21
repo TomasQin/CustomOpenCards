@@ -4,7 +4,7 @@ namespace XmlFileTransferHandle.XmlEnum
 {
     public enum ParamControlType
     {
-        ListMemberSelectControl,
+        ListViewMemberSelectControl,
         DateTimePickerGroupControl,
         ParameterCombobox,
         TreeViewMemberSelectControl

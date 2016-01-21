@@ -11,15 +11,15 @@ namespace CustomUI.Controls
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class ListMemberSelectControl
+    public partial class ListViewMemberSelectControl
     {
         #region [Field]
         private List<SelectedMemberNode> Nodes { get; set; }
-        private List<ListMemberItem> AuthorList { get; set; }
+        private List<ListViewMemberItem> AuthorList { get; set; }
         private List<NodeControl> NodeControlList { get; set; }
         #endregion
 
-        public ListMemberSelectControl()
+        public ListViewMemberSelectControl()
         {
             InitializeComponent();
             NodeControlList = new List<NodeControl>();
@@ -36,15 +36,15 @@ namespace CustomUI.Controls
         public override void InitData()
         {
             //todo 根据sourceID来去查DB
-            AuthorList = new List<ListMemberItem>()
+            AuthorList = new List<ListViewMemberItem>()
             {
-                new ListMemberItem("孙传芳", "SCF"),
-                new ListMemberItem("吴佩浮", "WPF"),
-                new ListMemberItem("阎锡山", "YXS"),
-                new ListMemberItem("张作霖", "ZZL"),
-                new ListMemberItem("袁世凯", "YSK"),
-                new ListMemberItem("孙中山", "SZS"),
-                new ListMemberItem("蔡锷", "CE")
+                new ListViewMemberItem("孙传芳", "SCF"),
+                new ListViewMemberItem("吴佩浮", "WPF"),
+                new ListViewMemberItem("阎锡山", "YXS"),
+                new ListViewMemberItem("张作霖", "ZZL"),
+                new ListViewMemberItem("袁世凯", "YSK"),
+                new ListViewMemberItem("孙中山", "SZS"),
+                new ListViewMemberItem("蔡锷", "CE")
             };
 
             Nodes = ParamItem.SelectedMemberNode.Select(item => new SelectedMemberNode(item.Caption)).ToList();
@@ -148,7 +148,7 @@ namespace CustomUI.Controls
         /// <param name="e"></param>
         private void RightMoveBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            var item = AuthorListBox.SelectedItem as ListMemberItem;
+            var item = AuthorListBox.SelectedItem as ListViewMemberItem;
             if (item == null) return;
             item.IsVisible = Visibility.Collapsed;
             NodeControlList.ForEach(p => p.AddItem(item));

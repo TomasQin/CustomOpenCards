@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Params ShowAllParams="true">
 
-  <Param ID="AuthorSelect" Type="ListMemberSelectControl" Caption="作者" DataSourceID="13000014" >
+  <Param ID="AuthorSelect" Type="ListViewMemberSelectControl" Caption="作者" DataSourceID="13000014" >
     <SelectedMemberNode ID="ContactAuthorSelectedNode" Caption="联系人"/>
     <SelectedMemberNode ID="ContactAuthorSelectedNode" Caption="研究员"/>
   </Param>

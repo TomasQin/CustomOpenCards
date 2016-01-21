@@ -22,7 +22,7 @@
 
         <commonControls:PopupNonTopmost x:Name="XSelectPopup" IsOpen="False"  Placement="Bottom" HorizontalAlignment="Left" >
             <Border BorderBrush="Black" BorderThickness="1" Background="White">
-                <Grid >
+                <Grid Width="350">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>

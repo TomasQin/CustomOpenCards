@@ -3,9 +3,9 @@ using CustomUI.Common;
 
 namespace CustomUI.Entitys
 {
-    public class ListMemberItem : SelectedMemberNodeItem
+    public class ListViewMemberItem : SelectedMemberNodeItem
     {
-        public ListMemberItem(string name, string pyName)
+        public ListViewMemberItem(string name, string pyName)
         {
             Name = name;
             PyName = pyName;

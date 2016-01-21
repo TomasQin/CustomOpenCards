@@ -71,7 +71,7 @@ namespace CustomUI.PannelBL
         }
 
         /// <summary>
-        /// 创建在配置文件里所有的参数控件的实例
+        /// 根据配置文件中的参数配置，来创建所有控件的实例
         /// </summary>
         /// <param name="currentUiDispatcher"></param>
         public void Init(Dispatcher currentUiDispatcher)
@@ -83,8 +83,8 @@ namespace CustomUI.PannelBL
                 IParameterBasicInterface control = null;
                 switch (item.Type)
                 {
-                    case ParamControlType.ListMemberSelectControl:
-                        control = new ListMemberSelectControl();
+                    case ParamControlType.ListViewMemberSelectControl:
+                        control = new ListViewMemberSelectControl();
                         break;
                     case ParamControlType.DateTimePickerGroupControl:
                         control = new DateTimePickerGroupControl();

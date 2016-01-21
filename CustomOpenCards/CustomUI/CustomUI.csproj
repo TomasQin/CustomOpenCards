@@ -64,10 +64,10 @@
     <Compile Include="Entitys\TreeNode.cs" />
     <Compile Include="Interface\IParameterInterface.cs" />
     <Compile Include="Common\ParameterBasicControl.cs" />
-    <Compile Include="Controls\ListMemberSelectControl.xaml.cs">
-      <DependentUpon>ListMemberSelectControl.xaml</DependentUpon>
+    <Compile Include="Controls\ListViewMemberSelectControl.xaml.cs">
+      <DependentUpon>ListViewMemberSelectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Entitys\ListMemberItem.cs" />
+    <Compile Include="Entitys\ListViewMemberItem.cs" />
     <Compile Include="Entitys\SelectedMemberNode.cs" />
     <Compile Include="Controls\NodeControl.xaml.cs">
       <DependentUpon>NodeControl.xaml</DependentUpon>
@@ -107,7 +107,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\ListMemberSelectControl.xaml">
+    <Page Include="Controls\ListViewMemberSelectControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
