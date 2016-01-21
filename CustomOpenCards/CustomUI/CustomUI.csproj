@@ -57,8 +57,10 @@
     <Compile Include="Controls\CommonControls\PopupNonTopmost.cs" />
     <Compile Include="Controls\TreeViewMemberSelectControl.xaml.cs">
       <DependentUpon>TreeViewMemberSelectControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entitys\LinkInfoItem.cs" />
+    <Compile Include="Entitys\SelectedMemberNodeItem.cs" />
     <Compile Include="Entitys\TreeNode.cs" />
     <Compile Include="Interface\IParameterInterface.cs" />
     <Compile Include="Common\ParameterBasicControl.cs" />
@@ -66,7 +68,7 @@
       <DependentUpon>ListMemberSelectControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Entitys\ListMemberItem.cs" />
-    <Compile Include="Entitys\SelectedMemberItemNode.cs" />
+    <Compile Include="Entitys\SelectedMemberNode.cs" />
     <Compile Include="Controls\NodeControl.xaml.cs">
       <DependentUpon>NodeControl.xaml</DependentUpon>
     </Compile>

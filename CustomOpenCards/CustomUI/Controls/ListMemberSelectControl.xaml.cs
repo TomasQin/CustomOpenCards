@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace CustomUI.Controls
     public partial class ListMemberSelectControl
     {
         #region [Field]
-        private List<SelectedMemberItemNode> Nodes { get; set; }
+        private List<SelectedMemberNode> Nodes { get; set; }
         private List<ListMemberItem> AuthorList { get; set; }
         private List<NodeControl> NodeControlList { get; set; }
         #endregion
@@ -46,15 +47,16 @@ namespace CustomUI.Controls
                 new ListMemberItem("蔡锷", "CE")
             };
 
-            Nodes = ParamItem.AuthorNodeItem.Select(item => new SelectedMemberItemNode(item.Caption)).ToList();
+            Nodes = ParamItem.SelectedMemberNode.Select(item => new SelectedMemberNode(item.Caption)).ToList();
 
 
             AuthorListBox.ItemsSource = AuthorList;
             SelectedPopup.Height = Nodes.Count * 110 + 38;
 
+            var guid = Guid.NewGuid();
             for (int i = 0; i < Nodes.Count; i++)
             {
-                var control = new NodeControl(Nodes[i].NodeName, i == 0);
+                var control = new NodeControl(Nodes[i].NodeName, i == 0, guid.ToString());
                 control.RemoveAuthorEventHandler += HandlerRemoveAuthorEvent;
                 control.Height = 110;
 
@@ -72,9 +74,10 @@ namespace CustomUI.Controls
 
         private void OkBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            var list = new List<ListMemberItem>();
+            var list = new List<SelectedMemberNodeItem>();
             foreach (var item in NodeControlList)
             {
+
                 list.AddRange(item.GetData());
             }
             if (list.Count < 1) return;
@@ -132,21 +135,10 @@ namespace CustomUI.Controls
         /// <param name="e"></param>
         private void LeftMoveBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            ListMemberItem tagetAuthor = null;
             foreach (var item in NodeControlList)
             {
-                var authorItem = item.RemoveItem();
-                if (authorItem == null)
-                {
-                    continue;
-                }
-                tagetAuthor = authorItem;
+                item.RemoveItem();
             }
-            if (tagetAuthor == null) return;
-            var firstOrDefault = AuthorList.FirstOrDefault(p => p == tagetAuthor);
-            if (firstOrDefault == null) return;
-            firstOrDefault.IsVisible = Visibility.Visible;
-            AuthorListBox.SelectedItem = firstOrDefault;
         }
 
         /// <summary>
@@ -194,6 +186,5 @@ namespace CustomUI.Controls
         }
         #endregion
 
-      
     }
 }

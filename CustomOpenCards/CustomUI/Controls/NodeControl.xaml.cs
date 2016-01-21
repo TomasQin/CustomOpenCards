@@ -12,34 +12,41 @@ namespace CustomUI.Controls
     /// </summary>
     public partial class NodeControl
     {
-        public EventHandler<AuthorEventArgs> RemoveAuthorEventHandler;
+        #region[Feild]
+        private readonly ObservableCollection<SelectedMemberNodeItem> _authorList;
+        #endregion
 
-        public NodeControl(string name, bool ischecked)
+        public event EventHandler<AuthorEventArgs> RemoveAuthorEventHandler;
+
+        public NodeControl(string name, bool ischecked,string groupName)
         {
             InitializeComponent();
             //在popup中显示的缘故，如果放在loaded事件中会触发多次(popup 每显示一次就会触发loaded事件)
-            _authorList = new ObservableCollection<ListMemberItem>();
+            _authorList = new ObservableCollection<SelectedMemberNodeItem>();
             SelectedListBox.ItemsSource = _authorList;
             CurrentSelectBtn.Content = name;
-            CurrentSelectBtn.IsChecked = ischecked;
-
+            CurrentSelectBtn.GroupName = groupName;
+            if (ischecked)
+            {
+                CurrentSelectBtn.IsChecked = true;
+            }
         }
 
-        public void AddItem(ListMemberItem authorItem)
+        public void AddItem(SelectedMemberNodeItem authorItem)
         {
             if (!CurrentSelectBtn.IsChecked.GetValueOrDefault()) return;
             _authorList.Add(authorItem);
             SelectedListBox.SelectedItem = authorItem;
         }
 
-        public ListMemberItem RemoveItem()
+        public void RemoveItem()
         {
-            if (!CurrentSelectBtn.IsChecked.GetValueOrDefault()) return null;
-            var item = SelectedListBox.SelectedItem as ListMemberItem;
+            if (!CurrentSelectBtn.IsChecked.GetValueOrDefault()) return ;
+            var item = SelectedListBox.SelectedItem as SelectedMemberNodeItem;
             _authorList.Remove(item);
             //删除元素之后，默认选择第一个元素（视以后的业务需求来改动）
             SelectedListBox.SelectedIndex = 0;
-            return item;
+            OnRemoveAuthorEventHandler(new AuthorEventArgs(item));
         }
 
         public void ItemMoveUp()
@@ -79,29 +86,33 @@ namespace CustomUI.Controls
 
         }
 
-        public List<ListMemberItem> GetData()
+        public List<SelectedMemberNodeItem> GetData()
         {
             return _authorList.ToList();
         }
-        #region [Private Method]
 
-        private readonly ObservableCollection<ListMemberItem> _authorList;
+        #region [Private Method]
 
         private void SelectedListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = RemoveItem();
-            RemoveAuthorEventHandler(sender, new AuthorEventArgs(item));
+            RemoveItem();
         }
 
+        private void OnRemoveAuthorEventHandler(AuthorEventArgs e)
+        {
+            var handler = RemoveAuthorEventHandler;
+            if (handler != null)
+                handler(this, e);
+        }
         #endregion
     }
 
     public class AuthorEventArgs : EventArgs
     {
-        public AuthorEventArgs(ListMemberItem enitiy)
+        public AuthorEventArgs(SelectedMemberNodeItem enitiy)
         {
             AuthorEnitiy = enitiy;
         }
-        public ListMemberItem AuthorEnitiy { get; set; }
+        public SelectedMemberNodeItem AuthorEnitiy { get; set; }
     }
 }

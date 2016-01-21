@@ -3,25 +3,13 @@ using CustomUI.Common;
 
 namespace CustomUI.Entitys
 {
-    public class ListMemberItem : PropertyChangedBase
+    public class ListMemberItem : SelectedMemberNodeItem
     {
         public ListMemberItem(string name, string pyName)
         {
             Name = name;
             PyName = pyName;
             IsVisible = Visibility.Visible;
-        }
-
-        private string _name;
-
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                NotifyPropertyChanged(() => Name);
-            }
         }
 
         private string _pyName;

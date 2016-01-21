@@ -83,7 +83,7 @@ namespace CustomUI.PannelBL
                 IParameterBasicInterface control = null;
                 switch (item.Type)
                 {
-                    case ParamControlType.AuthorSelectControl:
+                    case ParamControlType.ListMemberSelectControl:
                         control = new ListMemberSelectControl();
                         break;
                     case ParamControlType.DateTimePickerGroupControl:
@@ -91,6 +91,9 @@ namespace CustomUI.PannelBL
                         break;
                     case ParamControlType.ParameterCombobox:
                         control = new ParameterCombobox();
+                        break;
+                    case ParamControlType.TreeViewMemberSelectControl:
+                        control = new TreeViewMemberSelectControl();
                         break;
                 }
                 if (control == null) continue;

@@ -1,9 +1,9 @@
 ﻿
 namespace CustomUI.Entitys
 {
-    public class SelectedMemberItemNode
+    public class SelectedMemberNode
     {
-        public SelectedMemberItemNode(string name)
+        public SelectedMemberNode(string name)
         {
             NodeName = name;
         }

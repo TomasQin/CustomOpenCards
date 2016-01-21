@@ -23,7 +23,7 @@
             </DockPanel>
         </Button>
         <Popup x:Name="SelectedPopup" Placement="Center" PlacementTarget="{Binding ElementName=TargetBtn}" 
-               Width="350"  >
+               Width="350" >
             <Border BorderThickness="1" BorderBrush="Black" Background="White">
                 <Grid >
                     <Grid.ColumnDefinitions>

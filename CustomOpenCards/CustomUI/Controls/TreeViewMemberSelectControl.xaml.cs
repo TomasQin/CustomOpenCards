@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -10,27 +10,58 @@ namespace CustomUI.Controls
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class TreeViewMemberSelectControl 
+    public partial class TreeViewMemberSelectControl
     {
         #region [Field]
         private IEnumerator<TreeNodeExtend> _matchingPeopleEnumerator;
         private List<TreeNodeExtend> _rootNode;
 
-        private ObservableCollection<string> SelectList { get; set; }
+        //private ObservableCollection<string> SelectList { get; set; }
+
+        private List<SelectedMemberNode> Nodes { get; set; }
+        private List<NodeControl> NodeControlList { get; set; }
+
         #endregion
 
         public TreeViewMemberSelectControl()
         {
             InitializeComponent();
-            Loaded += AuthorSelectControl_Loaded;
+            NodeControlList = new List<NodeControl>();
         }
 
-        private void AuthorSelectControl_Loaded(object sender, RoutedEventArgs e)
+        public override void InitData()
         {
-            SelectList = new ObservableCollection<string>();
             var source = new DataSource();
             _rootNode = source.Get(source.GetDataFromDB());
             AuthorsTreeView.ItemsSource = _rootNode;
+
+            Nodes = ParamItem.SelectedMemberNode.Select(item => new SelectedMemberNode(item.Caption)).ToList();
+
+            var guid = Guid.NewGuid();
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                var control = new NodeControl(Nodes[i].NodeName, i == 0, guid.ToString());
+                control.RemoveAuthorEventHandler += HandlerRemoveAuthorEvent;
+                control.Height = 110;
+
+                NodeControlList.Add(control);
+                ChildrenPanel.Children.Add(control);
+            }
+        }
+
+        public override void SaveParameter()
+        {
+
+        }
+
+        #region [Private Method]
+
+        private void HandlerRemoveAuthorEvent(object sender, AuthorEventArgs e)
+        {
+            var tagetAuthor = e.AuthorEnitiy as TreeNodeExtend;
+            if (tagetAuthor == null) return;
+            tagetAuthor.IsVisibility = Visibility.Visible;
+            tagetAuthor.IsSelected = true;
         }
 
         private void AddAuthor_OnClick(object sender, RoutedEventArgs e)
@@ -38,59 +69,68 @@ namespace CustomUI.Controls
             var author = AuthorsTreeView.SelectedItem as TreeNodeExtend;
             if (author == null) return;
             if (author.Children.Count > 0) return;
-            if (SelectList.Any(p => p == author.Name)) return;
-            SelectList.Add(author.Name);
-            AuthorNameList.ItemsSource = SelectList;
-            AuthorNameList.SelectedItem = author.Name;
+
+            foreach (var item in NodeControlList)
+            {
+                item.AddItem(author);
+            }
+            author.IsVisibility = Visibility.Collapsed;
         }
 
         private void Remove_OnClick(object sender, RoutedEventArgs e)
         {
-            if (AuthorNameList.SelectedItem == null) return;
-
-            SelectList.Remove(AuthorNameList.SelectedItem.ToString());
-            AuthorNameList.ItemsSource = SelectList;
-            AuthorNameList.SelectedIndex = SelectList.Count - 1;
+            foreach (var item in NodeControlList)
+            {
+                item.RemoveItem();
+            }
         }
 
         private void MoveUp_OnClick(object sender, RoutedEventArgs e)
         {
-            var index = AuthorNameList.SelectedIndex;
-            if (index <= 0) return;
-            AuthorNameList.ItemsSource = null;
-            var tagertItem = SelectList[index - 1];
-            SelectList.RemoveAt(index - 1);
-            SelectList.Insert(index, tagertItem);
-            AuthorNameList.ItemsSource = SelectList;
-            AuthorNameList.SelectedIndex = index - 1;
+            foreach (var item in NodeControlList)
+            {
+                item.ItemMoveUp();
+            }
         }
 
         private void MoveDown_OnClick(object sender, RoutedEventArgs e)
         {
-            var index = AuthorNameList.SelectedIndex;
-            if (index < 0)
-                return;
-            if (index < SelectList.Count - 1)
+            foreach (var item in NodeControlList)
             {
-                AuthorNameList.ItemsSource = null;
-                var tagertItem = SelectList[index + 1];
-                SelectList.RemoveAt(index + 1);
-                SelectList.Insert(index, tagertItem);
-                AuthorNameList.ItemsSource = SelectList;
-                AuthorNameList.SelectedIndex = index + 1;
+                item.ItemMoveDown();
             }
         }
 
         private void BtnOK_OnClick(object sender, RoutedEventArgs e)
         {
-            var displayAuthorName = string.Empty;
-            foreach (var item in SelectList)
+            var list = new List<SelectedMemberNodeItem>();
+            foreach (var item in NodeControlList)
             {
-                displayAuthorName = string.IsNullOrEmpty(displayAuthorName) ? item : string.Format("{0},{1}", displayAuthorName, item);
+
+                list.AddRange(item.GetData());
             }
-            XDisplayNameTb.Text = displayAuthorName;
+            if (list.Count < 1) return;
+
+            var displayName = string.Empty;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (i == 0)
+                {
+                    displayName = list[i].Name;
+                }
+                else
+                {
+                    if (i > 2)
+                    {
+                        displayName = string.Format("{0}...", displayName);
+                        break;
+                    }
+                    displayName = string.Format("{0},{1}", displayName, list[i].Name);
+                }
+            }
+
+            XDisplayNameTb.Text = displayName;
             XSelectPopup.IsOpen = false;
-            //todo 保存到高级属性
         }
 
         private void BtnCancel_OnClick(object sender, RoutedEventArgs e)
@@ -105,7 +145,7 @@ namespace CustomUI.Controls
 
         #region Search Logic
 
-        void PerformSearch(string searchText)
+        private void PerformSearch(string searchText)
         {
             if (string.IsNullOrEmpty(searchText)) return;
 
@@ -125,7 +165,7 @@ namespace CustomUI.Controls
             person.IsSelected = true;
         }
 
-        void VerifyMatchingPeopleEnumerator(string searchtext)
+        private void VerifyMatchingPeopleEnumerator(string searchtext)
         {
             var matches = FindMatches(searchtext, _rootNode);
             _matchingPeopleEnumerator = matches.GetEnumerator();
@@ -179,19 +219,6 @@ namespace CustomUI.Controls
         }
 
         /// <summary>
-        /// 双击移出列表
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListBoxItem_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 2)
-            {
-                Remove_OnClick(null, null);
-            }
-        }
-
-        /// <summary>
         /// 按下回车键进行搜索
         /// </summary>
         /// <param name="sender"></param>
@@ -203,6 +230,8 @@ namespace CustomUI.Controls
                 PerformSearch(XSearchText.Text);
             }
         }
+
+        #endregion
     }
 
     public class DataSource

@@ -12,7 +12,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <controls:TreeViewMemberSelectControl/>
+            <!--<controls:TreeViewMemberSelectControl/>-->
             <Button Content="aa" Click="ButtonBase_OnClick"></Button>
             <Grid x:Name="RootGrid1">
                 <!--<pannelControls:ParameterPannelControl/>-->

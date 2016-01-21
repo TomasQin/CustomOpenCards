@@ -11,7 +11,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <RadioButton GroupName="TestGroupName" x:Name="CurrentSelectBtn" Margin="0,6">
+        <RadioButton  x:Name="CurrentSelectBtn" Margin="0,6" >
             <TextBlock Text="研究员列表" FontSize="14"  FontWeight="Light"/>
         </RadioButton>
 

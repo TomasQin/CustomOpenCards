@@ -37,7 +37,7 @@ namespace XmlFileTransferHandle.XmlEntitys
         public string ChildID;
 
         [XmlElement]
-        public List<AuthorNodeItem> AuthorNodeItem;
+        public List<SelectedMemberNode> SelectedMemberNode;
 
         [XmlElement]
         public List<DatePickerItem> DatePickerItem;
@@ -64,7 +64,7 @@ namespace XmlFileTransferHandle.XmlEntitys
 
     }
 
-    public class AuthorNodeItem
+    public class SelectedMemberNode
     {
         [XmlAttribute]
         public string ID { get; set; }

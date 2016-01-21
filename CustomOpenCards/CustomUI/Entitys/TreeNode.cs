@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CustomUI.Common;
+using System.Windows;
 
 namespace CustomUI.Entitys
 {
@@ -12,6 +12,7 @@ namespace CustomUI.Entitys
             ID = id;
             ParentID = pid;
         }
+
         public string Name { get; set; }
 
         public string ID { get; set; }
@@ -19,7 +20,7 @@ namespace CustomUI.Entitys
         public string ParentID { get; set; }
     }
 
-    public class TreeNodeExtend : PropertyChangedBase
+    public class TreeNodeExtend : SelectedMemberNodeItem
     {
         public TreeNodeExtend()
         {
@@ -40,13 +41,6 @@ namespace CustomUI.Entitys
             set { _pid = value; }
         }
 
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
         private List<TreeNodeExtend> _children;
 
         public List<TreeNodeExtend> Children
@@ -62,6 +56,20 @@ namespace CustomUI.Entitys
             get { return _parent; }
 
             set { _parent = value; }
+        }
+
+        private Visibility _isVisibility = Visibility.Visible;
+        public Visibility IsVisibility
+        {
+            get { return _isVisibility; }
+            set
+            {
+                if (value != _isVisibility)
+                {
+                    _isVisibility = value;
+                    NotifyPropertyChanged(() => IsVisibility);
+                }
+            }
         }
 
         private bool _isExpanded;
