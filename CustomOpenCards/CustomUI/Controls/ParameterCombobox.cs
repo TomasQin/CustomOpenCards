@@ -59,7 +59,7 @@ namespace CustomUI.Controls
 
             foreach (var item in ChilderenParameter)
             {
-                item.ReLoadData();
+                item.GetRelationData();
             }
         }
 
@@ -80,7 +80,7 @@ namespace CustomUI.Controls
             _isInint = true;
         }
 
-        public void ReLoadData()
+        public void GetRelationData()
         {
             //当前控件还没有赋初始值，不能进行联动
             //当前控件没有关联控件是，不能进行联动

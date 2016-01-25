@@ -7,7 +7,7 @@ namespace CustomUI.Interface
     /// </summary>
     public interface IParameterRelatedInterface : IParameterBasicInterface
     {
-        void ReLoadData();
+        void GetRelationData();
 
         string GetCurrentData();
 

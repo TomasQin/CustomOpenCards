@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,15 +18,29 @@ namespace CustomUI.Controls
     public partial class ListViewMemberSelectControl : IParameterBasicInterface
     {
         #region [Field]
+
+        private const int ShowNumber = 30;
+
         private List<SelectedMemberNode> Nodes { get; set; }
-        private List<ListViewMemberItem> AuthorList { get; set; }
+
         private List<NodeControl> NodeControlList { get; set; }
+
+        /// <summary>
+        /// 记录所有从服务器查询到的member
+        /// UI显示以30条为界限(暂定)
+        /// </summary>
+        private readonly List<ListViewMemberItem> _totalMemberItems;
         #endregion
+
+        public ObservableCollection<ListViewMemberItem> MemberList { get; set; }
 
         public ListViewMemberSelectControl()
         {
             InitializeComponent();
             NodeControlList = new List<NodeControl>();
+            _totalMemberItems = new List<ListViewMemberItem>();
+            MemberList = new ObservableCollection<ListViewMemberItem>();
+            AuthorListBox.DataContext = MemberList;
         }
 
         public Param ParamItem { get; set; }
@@ -40,22 +55,30 @@ namespace CustomUI.Controls
 
         public void InitData()
         {
-            //todo 根据sourceID来去查DB
-            AuthorList = new List<ListViewMemberItem>()
+            for (int i = 0; i < 2000; i++)
             {
-                new ListViewMemberItem("孙传芳", "SCF"),
-                new ListViewMemberItem("吴佩浮", "WPF"),
-                new ListViewMemberItem("阎锡山", "YXS"),
-                new ListViewMemberItem("张作霖", "ZZL"),
-                new ListViewMemberItem("袁世凯", "YSK"),
-                new ListViewMemberItem("孙中山", "SZS"),
-                new ListViewMemberItem("蔡锷", "CE")
-            };
+                if (i < 3)
+                {
+                    MemberList.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
+                    MemberList.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
+                    MemberList.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
+                    MemberList.Add(new ListViewMemberItem(string.Format("张作霖{0}", i), string.Format("{0}ZZL", i)));
+                    MemberList.Add(new ListViewMemberItem(string.Format("袁世凯{0}", i), string.Format("{0}YSK", i)));
+                    MemberList.Add(new ListViewMemberItem(string.Format("孙中山{0}", i), string.Format("{0}SZS", i)));
+                    MemberList.Add(new ListViewMemberItem(string.Format("蔡锷{0}", i), string.Format("{0}CE", i)));
+                }
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("张作霖{0}", i), string.Format("{0}ZZL", i)));
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("袁世凯{0}", i), string.Format("{0}YSK", i)));
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("孙中山{0}", i), string.Format("{0}SZS", i)));
+                _totalMemberItems.Add(new ListViewMemberItem(string.Format("蔡锷{0}", i), string.Format("{0}CE", i)));
+            }
+
 
             Nodes = ParamItem.SelectedMemberNode.Select(item => new SelectedMemberNode(item.Caption)).ToList();
 
-
-            AuthorListBox.ItemsSource = AuthorList;
             SelectedPopup.Height = Nodes.Count * 110 + 38;
 
             var guid = Guid.NewGuid();
@@ -117,21 +140,40 @@ namespace CustomUI.Controls
         private void SearchBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var searchText = SearchInpuTextBox.Text;
+            SeatchMember(searchText);
+        }
+
+
+        #region [Search Method]
+
+        private void SeatchMember(string searchText)
+        {
+            //todo 看之后有必要使用多线程吗
+            MemberList.Clear();
             if (string.IsNullOrEmpty(searchText))
             {
-                foreach (var item in AuthorList)
+                for (int i = 0; i < ShowNumber; i++)
                 {
-                    item.IsVisible = Visibility.Visible;
+                    MemberList.Add(_totalMemberItems[i]);
                 }
             }
             else
             {
-                foreach (var item in AuthorList)
+                foreach (var item in _totalMemberItems)
                 {
-                    item.IsVisible = item.PyName.ToLower().Contains(searchText.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+                    if (MemberList.Count > ShowNumber)
+                    {
+                        break;
+                    }
+                    if (item.PyName.ToLower().Contains(searchText.ToLower()))
+                    {
+                        MemberList.Add(item);
+                    }
                 }
             }
+
         }
+        #endregion
 
         /// <summary>
         /// 把作者名字从右边的子控件移入到左边的全部列表里
@@ -184,7 +226,7 @@ namespace CustomUI.Controls
         void HandlerRemoveAuthorEvent(object sender, AuthorEventArgs e)
         {
             if (e.AuthorEnitiy == null) return;
-            var firstOrDefault = AuthorList.FirstOrDefault(p => p == e.AuthorEnitiy);
+            var firstOrDefault = MemberList.FirstOrDefault(p => p == e.AuthorEnitiy);
             if (firstOrDefault == null) return;
             firstOrDefault.IsVisible = Visibility.Visible;
             AuthorListBox.SelectedItem = firstOrDefault;

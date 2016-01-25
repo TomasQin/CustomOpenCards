@@ -53,7 +53,7 @@ namespace CustomUI.PannelBL
                         item1.InitData();
                     }));
                 }
-               //关联控件再根据被关联的控件默认值去取默认显示的值
+                //关联控件再根据被关联的控件默认值去取默认显示的值
                 foreach (var item in _currentControlList)
                 {
                     Thread.Sleep(500);
@@ -62,7 +62,7 @@ namespace CustomUI.PannelBL
                     {
                         _currentUiDispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                         {
-                            relatedControl.ReLoadData();
+                            relatedControl.GetRelationData();
                         }));
                     }
                 }
@@ -98,7 +98,7 @@ namespace CustomUI.PannelBL
                 }
                 if (control == null) continue;
 
-                control.ParamItem=item;
+                control.ParamItem = item;
                 _totalControlList.Add(item.ID, control);
             }
         }
