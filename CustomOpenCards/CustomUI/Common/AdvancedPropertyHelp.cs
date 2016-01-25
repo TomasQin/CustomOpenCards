@@ -14,8 +14,8 @@ namespace CustomUI.Common
                 {
                     {"AuthorSelect", "Default"},
                     {"DatePickersGroup", "Default"},
-                    {"3", ""},
-                    {"4", ""},
+                    {"IndustrySelect", "Default"},
+                    {"ReportDate", "Default"},
                     {"5", ""},
                     {"6", ""}, 
                     {"7", ""},

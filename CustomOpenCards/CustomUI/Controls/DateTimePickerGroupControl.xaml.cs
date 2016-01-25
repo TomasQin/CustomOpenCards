@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using CustomUI.Common;
 using CustomUI.Entitys;
+using CustomUI.Interface;
 using XmlFileTransferHandle.XmlEntitys;
 using XmlFileTransferHandle.XmlEnum;
 
@@ -10,7 +12,7 @@ namespace CustomUI.Controls
     /// <summary>
     /// Interaction logic for DateTimePickerControl.xaml
     /// </summary>
-    public partial class DateTimePickerGroupControl
+    public partial class DateTimePickerGroupControl : IParameterBasicInterface
     {
         #region [Fied]
         private readonly List<DatePicker> _controlList = new List<DatePicker>();
@@ -21,12 +23,14 @@ namespace CustomUI.Controls
             InitializeComponent();
         }
 
-        public override void SaveParameter()
+        public Param ParamItem { get; set; }
+
+        public  void SaveParameter()
         {
 
         }
 
-        public override void InitData()
+        public  void InitData()
         {
             var baseDateTinme = DateTime.Now;
             DatePicker parentDatePicker = null;
@@ -37,17 +41,19 @@ namespace CustomUI.Controls
                 {
                     parentDatePicker = datePicker;
                 }
-                else
+
+                if (AdvancedPropertyHelp.GetAllProerty().ContainsKey(item.ID))
                 {
                     _controlList.Add(datePicker);
+
+                    var entity = new ParameterItemEntity(item.Caption, datePicker, ParamItem);
+                    var control = new ContentControl
+                    {
+                        Template = FindResource("ParameterTemplate") as ControlTemplate,
+                        DataContext = entity
+                    };
+                    RootStackPanel.Children.Add(control);
                 }
-                var entity = new ParameterItemEntity(item.Caption, datePicker, ParamItem);
-                var control = new ContentControl
-                {
-                    Template = FindResource("ParameterTemplate") as ControlTemplate,
-                    DataContext = entity
-                };
-                RootStackPanel.Children.Add(control);
             }
 
             if (parentDatePicker != null)
@@ -60,7 +66,7 @@ namespace CustomUI.Controls
         #region [Private Method]
         private void ParametersManagement_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_controlList.Count <= 0) return;
+            if (_controlList.Count < 2) return;
             var picker = sender as DatePicker;
             if (picker == null) return;
             var baseDateTinme = DateTime.Parse(picker.Text);

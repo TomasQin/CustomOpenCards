@@ -5,13 +5,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CustomUI.Entitys;
+using CustomUI.Interface;
+using XmlFileTransferHandle.XmlEntitys;
+using SelectedMemberNode = CustomUI.Entitys.SelectedMemberNode;
 
 namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class ListViewMemberSelectControl
+    public partial class ListViewMemberSelectControl : IParameterBasicInterface
     {
         #region [Field]
         private List<SelectedMemberNode> Nodes { get; set; }
@@ -25,7 +28,9 @@ namespace CustomUI.Controls
             NodeControlList = new List<NodeControl>();
         }
 
-        public override void SaveParameter()
+        public Param ParamItem { get; set; }
+
+        public void SaveParameter()
         {
             foreach (var item in NodeControlList)
             {
@@ -33,7 +38,7 @@ namespace CustomUI.Controls
             }
         }
 
-        public override void InitData()
+        public void InitData()
         {
             //todo 根据sourceID来去查DB
             AuthorList = new List<ListViewMemberItem>()

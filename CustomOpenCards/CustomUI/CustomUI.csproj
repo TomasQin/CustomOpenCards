@@ -63,7 +63,6 @@
     <Compile Include="Entitys\SelectedMemberNodeItem.cs" />
     <Compile Include="Entitys\TreeNode.cs" />
     <Compile Include="Interface\IParameterInterface.cs" />
-    <Compile Include="Common\ParameterBasicControl.cs" />
     <Compile Include="Controls\ListViewMemberSelectControl.xaml.cs">
       <DependentUpon>ListViewMemberSelectControl.xaml</DependentUpon>
     </Compile>

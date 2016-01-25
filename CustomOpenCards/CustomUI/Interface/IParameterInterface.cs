@@ -6,8 +6,6 @@ namespace CustomUI.Interface
     {
         Param ParamItem { get; set; }
 
-        void ObtainParameters(Param item);
-
         void SaveParameter();
 
         void InitData();

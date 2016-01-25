@@ -4,13 +4,16 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CustomUI.Entitys;
+using CustomUI.Interface;
+using XmlFileTransferHandle.XmlEntitys;
+using SelectedMemberNode = CustomUI.Entitys.SelectedMemberNode;
 
 namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class TreeViewMemberSelectControl
+    public partial class TreeViewMemberSelectControl : IParameterBasicInterface
     {
         #region [Field]
         private IEnumerator<TreeNodeExtend> _matchingPeopleEnumerator;
@@ -29,7 +32,9 @@ namespace CustomUI.Controls
             NodeControlList = new List<NodeControl>();
         }
 
-        public override void InitData()
+        public Param ParamItem { get; set; }
+
+        public void InitData()
         {
             var source = new DataSource();
             _rootNode = source.Get(source.GetDataFromDB());
@@ -49,7 +54,7 @@ namespace CustomUI.Controls
             }
         }
 
-        public override void SaveParameter()
+        public void SaveParameter()
         {
 
         }
@@ -232,6 +237,7 @@ namespace CustomUI.Controls
         }
 
         #endregion
+
     }
 
     public class DataSource

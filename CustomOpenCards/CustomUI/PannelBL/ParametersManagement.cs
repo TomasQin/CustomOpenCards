@@ -98,7 +98,7 @@ namespace CustomUI.PannelBL
                 }
                 if (control == null) continue;
 
-                control.ObtainParameters(item);
+                control.ParamItem=item;
                 _totalControlList.Add(item.ID, control);
             }
         }

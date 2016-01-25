@@ -12,15 +12,14 @@
   </Param>
 
 
-  <Param ID="DatePickersGroup" Type="DateTimePickerGroupControl" >
-    <DatePickerItem ID="DatePicker1" Caption="日期1" DateTimePickerType="Normal" LinkedParentID="Root" IsEnable="true"/>
-    <DatePickerItem ID="DatePicker2" Caption="日期2" DateTimePickerType="QuarterStart" LinkedParentID="DatePicker1" IsEnable="true"/>
+  <Param ID="ReportDate" Type="DateTimePickerGroupControl" >
+    <DatePickerItem ID="ReportDate" Caption="日期1" DateTimePickerType="Normal" LinkedParentID="Root" IsEnable="true"/>
+    <DatePickerItem ID="TestDatePicker" Caption="日期2" DateTimePickerType="QuarterStart" LinkedParentID="DatePicker1" IsEnable="true"/>
     <DatePickerItem ID="DatePicker3" Caption="日期3" DateTimePickerType="QuarterEnd" LinkedParentID="DatePicker1" IsEnable="true"/>
     <DatePickerItem ID="DatePicker4" Caption="日期4" DateTimePickerType="AddDays" AddValue="-3" LinkedParentID="DatePicker1" IsEnable="true"/>
     <DatePickerItem ID="DatePicker5" Caption="日期5" DateTimePickerType="AddDays" AddValue="-14" LinkedParentID="DatePicker1" IsEnable="true"/>
     <DatePickerItem ID="DatePicker6" Caption="日期6" DateTimePickerType="AddMonths" AddValue="-1" LinkedParentID="DatePicker1" IsEnable="true"/>
   </Param>
-
 
   <Param ID="Child_A" Type="ParameterCombobox" Caption="作者" DataSourceID="A" ChildID="Child_AB:Child_AB"/>
   <Param ID="Child_B" Type="ParameterCombobox" Caption="作者" DataSourceID="B"  ChildID="Child_AB:Child_AB"/>
