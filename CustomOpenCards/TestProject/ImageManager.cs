@@ -5,6 +5,7 @@ using System.Resources;
 
 namespace TestProject
 {
+    //测试提交
     public class ImageManager
     {
         public void Open()
