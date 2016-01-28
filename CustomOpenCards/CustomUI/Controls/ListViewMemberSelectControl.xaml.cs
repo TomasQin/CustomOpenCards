@@ -21,6 +21,10 @@ namespace CustomUI.Controls
     {
         #region [Field]
 
+        /// <summary>
+        /// 如果限定了UI显示的条数，可以不同后台线程搜索的方式去查询（数据量太小，对性能的影响微乎其微）
+        /// 
+        /// </summary>
         private const int ShowNumber = 30;
 
         private List<SelectedMemberNode> Nodes { get; set; }
@@ -33,14 +37,13 @@ namespace CustomUI.Controls
         /// </summary>
         private readonly List<ListViewMemberItem> _totalMemberItems;
 
-        readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
-        private Thread _searchTask;
+        private Thread _searchThread;
         string _searchText = string.Empty;
         #endregion
 
         public ObservableCollection<ListViewMemberItem> MemberList { get; set; }
 
-        public ListViewMemberSelectControl( )
+        public ListViewMemberSelectControl()
         {
             InitializeComponent();
             NodeControlList = new List<NodeControl>();
@@ -51,28 +54,28 @@ namespace CustomUI.Controls
 
         public Param ParamItem { get; set; }
 
-        public void SaveParameter( )
+        public void SaveParameter()
         {
-            foreach(var item in NodeControlList)
+            foreach (var item in NodeControlList)
             {
                 item.Save();
             }
         }
 
-        public void InitData( )
+        public void InitData()
         {
-            for(int i = 0; i < 2000; i++)
+            for (int i = 0; i < 2000; i++)
             {
-                if(i < 3)
-                {
-                    MemberList.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
-                    MemberList.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
-                    MemberList.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
-                    MemberList.Add(new ListViewMemberItem(string.Format("张作霖{0}", i), string.Format("{0}ZZL", i)));
-                    MemberList.Add(new ListViewMemberItem(string.Format("袁世凯{0}", i), string.Format("{0}YSK", i)));
-                    MemberList.Add(new ListViewMemberItem(string.Format("孙中山{0}", i), string.Format("{0}SZS", i)));
-                    MemberList.Add(new ListViewMemberItem(string.Format("蔡锷{0}", i), string.Format("{0}CE", i)));
-                }
+                //if(i < 3)
+                //{
+                MemberList.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
+                MemberList.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
+                MemberList.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
+                MemberList.Add(new ListViewMemberItem(string.Format("张作霖{0}", i), string.Format("{0}ZZL", i)));
+                MemberList.Add(new ListViewMemberItem(string.Format("袁世凯{0}", i), string.Format("{0}YSK", i)));
+                MemberList.Add(new ListViewMemberItem(string.Format("孙中山{0}", i), string.Format("{0}SZS", i)));
+                MemberList.Add(new ListViewMemberItem(string.Format("蔡锷{0}", i), string.Format("{0}CE", i)));
+                //}
                 _totalMemberItems.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
                 _totalMemberItems.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
                 _totalMemberItems.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
@@ -88,7 +91,7 @@ namespace CustomUI.Controls
             SelectedPopup.Height = Nodes.Count * 110 + 38;
 
             var guid = Guid.NewGuid();
-            for(int i = 0; i < Nodes.Count; i++)
+            for (int i = 0; i < Nodes.Count; i++)
             {
                 var control = new NodeControl(Nodes[i].NodeName, i == 0, guid.ToString());
                 control.RemoveAuthorEventHandler += HandlerRemoveAuthorEvent;
@@ -97,13 +100,6 @@ namespace CustomUI.Controls
                 NodeControlList.Add(control);
                 ChildrenPanel.Children.Add(control);
             }
-
-            if(_searchTask == null)
-            {
-                _searchTask = new Thread(SeatchMember);
-                _searchTask.Start();
-            }
-
         }
 
         #region [Private Method]
@@ -116,23 +112,23 @@ namespace CustomUI.Controls
         private void OkBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var list = new List<SelectedMemberNodeItem>();
-            foreach(var item in NodeControlList)
+            foreach (var item in NodeControlList)
             {
 
                 list.AddRange(item.GetData());
             }
-            if(list.Count < 1) return;
+            if (list.Count < 1) return;
 
             var displayName = string.Empty;
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     displayName = list[i].Name;
                 }
                 else
                 {
-                    if(i > 2)
+                    if (i > 2)
                     {
                         displayName = string.Format("{0}...", displayName);
                         break;
@@ -151,31 +147,26 @@ namespace CustomUI.Controls
         }
 
 
-     
+
         private void SearchBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            //var searchText = SearchInpuTextBox.Text;
-            //SeatchMember(searchText);
             _searchText = SearchInpuTextBox.Text;
-            _autoResetEvent.Set();
-        }
-      
-        private void SeatchMember( )
-        {
-            while(true)
+            if (_searchThread != null)
             {
-                _autoResetEvent.WaitOne();
-
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(( ) =>
+                _searchThread.Abort();
+            }
+            _searchThread = new Thread(() =>
+            {
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                 {
                     MemberList.Clear();
                 }));
 
-                if(string.IsNullOrEmpty(_searchText))
+                if (string.IsNullOrEmpty(_searchText))
                 {
-                    for(int i = 0; i < ShowNumber; i++)
+                    for (int i = 0; i < _totalMemberItems.Count; i++)
                     {
-                        Dispatcher.Invoke(DispatcherPriority.Normal, new Action(( ) =>
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                         {
                             MemberList.Add(_totalMemberItems[i]);
                         }));
@@ -183,24 +174,24 @@ namespace CustomUI.Controls
                 }
                 else
                 {
-                    foreach(var item in _totalMemberItems)
+                    foreach (var item in _totalMemberItems)
                     {
-                        if(MemberList.Count > ShowNumber)
-                        {
-                            break;
-                        }
-                        if(item.PyName.ToLower().Contains(_searchText.ToLower()))
+                        //if(MemberList.Count > ShowNumber)
+                        //{
+                        //    break;
+                        //}
+                        if (item.PyName.ToLower().Contains(_searchText.ToLower()))
                         {
                             var item1 = item;
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(( ) =>
+                            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                             {
                                 MemberList.Add(item1);
                             }));
                         }
                     }
                 }
-            }
-
+            });
+            _searchThread.Start();
         }
 
         /// <summary>
@@ -210,7 +201,7 @@ namespace CustomUI.Controls
         /// <param name="e"></param>
         private void LeftMoveBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            foreach(var item in NodeControlList)
+            foreach (var item in NodeControlList)
             {
                 item.RemoveItem();
             }
@@ -224,7 +215,7 @@ namespace CustomUI.Controls
         private void RightMoveBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var item = AuthorListBox.SelectedItem as ListViewMemberItem;
-            if(item == null) return;
+            if (item == null) return;
             item.IsVisible = Visibility.Collapsed;
             NodeControlList.ForEach(p => p.AddItem(item));
         }
@@ -253,9 +244,9 @@ namespace CustomUI.Controls
 
         void HandlerRemoveAuthorEvent(object sender, AuthorEventArgs e)
         {
-            if(e.AuthorEnitiy == null) return;
+            if (e.AuthorEnitiy == null) return;
             var firstOrDefault = MemberList.FirstOrDefault(p => p == e.AuthorEnitiy);
-            if(firstOrDefault == null) return;
+            if (firstOrDefault == null) return;
             firstOrDefault.IsVisible = Visibility.Visible;
             AuthorListBox.SelectedItem = firstOrDefault;
         }

@@ -45,7 +45,7 @@ namespace CustomUI.PannelBL
                 //先初始化所有控件的datasource
                 foreach (var item in _currentControlList)
                 {
-                    Thread.Sleep(500);
+                    //Thread.Sleep(500);
                     var item1 = item;
 
                     _currentUiDispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
@@ -56,7 +56,7 @@ namespace CustomUI.PannelBL
                 //关联控件再根据被关联的控件默认值去取默认显示的值
                 foreach (var item in _currentControlList)
                 {
-                    Thread.Sleep(500);
+                    //Thread.Sleep(500);
                     var relatedControl = item as IParameterRelatedInterface;
                     if (relatedControl != null)
                     {
@@ -232,5 +232,43 @@ namespace CustomUI.PannelBL
         }
         #endregion
 
+    }
+
+    /// <summary>
+    /// 下载线程对了.
+    /// </summary>
+    public class DownLoadQueueThread:QueueThreadBase<int>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list">下载的列表ID</param>
+        public DownLoadQueueThread(IEnumerable<int> list):base(list)
+        {
+
+        }
+        /// <summary>
+        /// 每次多线程都到这里来,处理多线程
+        /// </summary>
+        /// <param name="pendingValue"列表ID></param>
+        /// <returns></returns>
+        protected override DoWorkResult DoWork(int pendingID)
+        {
+            try
+            {
+
+                //..........多线程处理....
+                return DoWorkResult.ContinueThread;//没有异常让线程继续跑..
+
+            }
+            catch (Exception)
+            {
+
+                return DoWorkResult.AbortCurrentThread;//有异常,可以终止当前线程.当然.也可以继续,
+                //return  DoWorkResult.AbortAllThread; //特殊情况下 ,有异常终止所有的线程...
+            }
+
+            //return base.DoWork(pendingValue);
+        }
     }
 }
