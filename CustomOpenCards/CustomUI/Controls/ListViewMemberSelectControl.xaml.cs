@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,14 +11,14 @@ using System.Windows.Threading;
 using CustomUI.Entitys;
 using CustomUI.Interface;
 using XmlFileTransferHandle.XmlEntitys;
-using SelectedMemberNode = CustomUI.Entitys.SelectedMemberNode;
+using SelectedMemberNode=CustomUI.Entitys.SelectedMemberNode;
 
 namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class ListViewMemberSelectControl : IParameterBasicInterface
+    public partial class ListViewMemberSelectControl:IParameterBasicInterface
     {
         #region [Field]
 
@@ -25,11 +26,19 @@ namespace CustomUI.Controls
         /// 如果限定了UI显示的条数，可以不同后台线程搜索的方式去查询（数据量太小，对性能的影响微乎其微）
         /// 
         /// </summary>
-        private const int ShowNumber = 30;
+        private const int ShowNumber=30;
 
-        private List<SelectedMemberNode> Nodes { get; set; }
+        private List<SelectedMemberNode> Nodes
+        {
+            get;
+            set;
+        }
 
-        private List<NodeControl> NodeControlList { get; set; }
+        private List<NodeControl> NodeControlList
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 记录所有从服务器查询到的member
@@ -38,137 +47,149 @@ namespace CustomUI.Controls
         private readonly List<ListViewMemberItem> _totalMemberItems;
 
         private Thread _searchThread;
-        string _searchText = string.Empty;
+        string _searchText=string.Empty;
         #endregion
 
-        public ObservableCollection<ListViewMemberItem> MemberList { get; set; }
-
-        public ListViewMemberSelectControl()
+        public ObservableCollection<ListViewMemberItem> MemberList
         {
-            InitializeComponent();
-            NodeControlList = new List<NodeControl>();
-            _totalMemberItems = new List<ListViewMemberItem>();
-            MemberList = new ObservableCollection<ListViewMemberItem>();
-            AuthorListBox.DataContext = MemberList;
+            get;
+            set;
         }
 
-        public Param ParamItem { get; set; }
+        public ListViewMemberSelectControl ()
+        {
+            InitializeComponent ();
+            NodeControlList=new List<NodeControl> ();
+            _totalMemberItems=new List<ListViewMemberItem> ();
+            MemberList=new ObservableCollection<ListViewMemberItem> ();
+            AuthorListBox.DataContext=MemberList;
+        }
 
-        public void SaveParameter()
+        public Param ParamItem
+        {
+            get;
+            set;
+        }
+
+        public void SaveParameter ()
         {
             foreach (var item in NodeControlList)
             {
-                item.Save();
+                item.Save ();
             }
         }
 
-        public void InitData()
+        public Task InitData ()
         {
-            for (int i = 0; i < 2000; i++)
+            var task=new Task (() =>
             {
-                //if(i < 3)
-                //{
-                MemberList.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
-                MemberList.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
-                MemberList.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
-                MemberList.Add(new ListViewMemberItem(string.Format("张作霖{0}", i), string.Format("{0}ZZL", i)));
-                MemberList.Add(new ListViewMemberItem(string.Format("袁世凯{0}", i), string.Format("{0}YSK", i)));
-                MemberList.Add(new ListViewMemberItem(string.Format("孙中山{0}", i), string.Format("{0}SZS", i)));
-                MemberList.Add(new ListViewMemberItem(string.Format("蔡锷{0}", i), string.Format("{0}CE", i)));
-                //}
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("孙传芳{0}", i), string.Format("{0}SCF", i)));
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("吴佩浮{0}", i), string.Format("{0}WPF", i)));
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("阎锡山{0}", i), string.Format("{0}YXS", i)));
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("张作霖{0}", i), string.Format("{0}ZZL", i)));
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("袁世凯{0}", i), string.Format("{0}YSK", i)));
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("孙中山{0}", i), string.Format("{0}SZS", i)));
-                _totalMemberItems.Add(new ListViewMemberItem(string.Format("蔡锷{0}", i), string.Format("{0}CE", i)));
-            }
+                Thread.Sleep (1000);
+                for (int i=0 ; i<2000 ; i++)
+                {
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("孙传芳{0}",i),string.Format ("{0}SCF",i)));
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("吴佩浮{0}",i),string.Format ("{0}WPF",i)));
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("阎锡山{0}",i),string.Format ("{0}YXS",i)));
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("张作霖{0}",i),string.Format ("{0}ZZL",i)));
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("袁世凯{0}",i),string.Format ("{0}YSK",i)));
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("孙中山{0}",i),string.Format ("{0}SZS",i)));
+                    _totalMemberItems.Add (new ListViewMemberItem (string.Format ("蔡锷{0}",i),string.Format ("{0}CE",i)));
+                }
 
+                Nodes=ParamItem.SelectedMemberNode.Select (item => new SelectedMemberNode (item.Caption)).ToList ();
 
-            Nodes = ParamItem.SelectedMemberNode.Select(item => new SelectedMemberNode(item.Caption)).ToList();
+                Dispatcher.Invoke (DispatcherPriority.Normal,new Action (() =>
+                {
+                    foreach (var item in _totalMemberItems)
+                    {
+                        MemberList.Add (item);
+                    }
 
-            SelectedPopup.Height = Nodes.Count * 110 + 38;
+                    SelectedPopup.Height=Nodes.Count*110+38;
 
-            var guid = Guid.NewGuid();
-            for (int i = 0; i < Nodes.Count; i++)
-            {
-                var control = new NodeControl(Nodes[i].NodeName, i == 0, guid.ToString());
-                control.RemoveAuthorEventHandler += HandlerRemoveAuthorEvent;
-                control.Height = 110;
+                    var guid=Guid.NewGuid ();
+                    for (int i=0 ; i<Nodes.Count ; i++)
+                    {
+                        var control=new NodeControl (Nodes[i].NodeName,i==0,guid.ToString ());
+                        control.RemoveAuthorEventHandler+=HandlerRemoveAuthorEvent;
+                        control.Height=110;
 
-                NodeControlList.Add(control);
-                ChildrenPanel.Children.Add(control);
-            }
+                        NodeControlList.Add (control);
+                        ChildrenPanel.Children.Add (control);
+                    }
+                }));
+            });
+
+            return task;
         }
 
         #region [Private Method]
 
-        private void ShowPopupBtn_OnClick(object sender, RoutedEventArgs e)
+        private void ShowPopupBtn_OnClick (object sender,RoutedEventArgs e)
         {
-            SelectedPopup.IsOpen = true;
+            SelectedPopup.IsOpen=true;
         }
 
-        private void OkBtn_OnClick(object sender, RoutedEventArgs e)
+        private void OkBtn_OnClick (object sender,RoutedEventArgs e)
         {
-            var list = new List<SelectedMemberNodeItem>();
+            var list=new List<SelectedMemberNodeItem> ();
             foreach (var item in NodeControlList)
             {
 
-                list.AddRange(item.GetData());
+                list.AddRange (item.GetData ());
             }
-            if (list.Count < 1) return;
+            if (list.Count<1)
+                return;
 
-            var displayName = string.Empty;
-            for (int i = 0; i < list.Count; i++)
+            var displayName=string.Empty;
+            for (int i=0 ; i<list.Count ; i++)
             {
-                if (i == 0)
+                if (i==0)
                 {
-                    displayName = list[i].Name;
+                    displayName=list[i].Name;
                 }
                 else
                 {
-                    if (i > 2)
+                    if (i>2)
                     {
-                        displayName = string.Format("{0}...", displayName);
+                        displayName=string.Format ("{0}...",displayName);
                         break;
                     }
-                    displayName = string.Format("{0},{1}", displayName, list[i].Name);
+                    displayName=string.Format ("{0},{1}",displayName,list[i].Name);
                 }
             }
 
-            ContentLabel.Content = displayName;
-            SelectedPopup.IsOpen = false;
+            ContentLabel.Content=displayName;
+            SelectedPopup.IsOpen=false;
         }
 
-        private void CancelBtn_OnClick(object sender, RoutedEventArgs e)
+        private void CancelBtn_OnClick (object sender,RoutedEventArgs e)
         {
-            SelectedPopup.IsOpen = false;
+            SelectedPopup.IsOpen=false;
         }
 
 
 
-        private void SearchBtn_OnClick(object sender, RoutedEventArgs e)
+        private void SearchBtn_OnClick (object sender,RoutedEventArgs e)
         {
-            _searchText = SearchInpuTextBox.Text;
-            if (_searchThread != null)
+            _searchText=SearchInpuTextBox.Text;
+            if (_searchThread!=null)
             {
-                _searchThread.Abort();
+                _searchThread.Abort ();
             }
-            _searchThread = new Thread(() =>
+            _searchThread=new Thread (() =>
             {
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                Dispatcher.Invoke (DispatcherPriority.Normal,new Action (() =>
                 {
-                    MemberList.Clear();
+                    MemberList.Clear ();
                 }));
 
-                if (string.IsNullOrEmpty(_searchText))
+                if (string.IsNullOrEmpty (_searchText))
                 {
-                    for (int i = 0; i < _totalMemberItems.Count; i++)
+                    for (int i=0 ; i<_totalMemberItems.Count ; i++)
                     {
-                        Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                        Dispatcher.Invoke (DispatcherPriority.Normal,new Action (() =>
                         {
-                            MemberList.Add(_totalMemberItems[i]);
+                            MemberList.Add (_totalMemberItems[i]);
                         }));
                     }
                 }
@@ -180,18 +201,18 @@ namespace CustomUI.Controls
                         //{
                         //    break;
                         //}
-                        if (item.PyName.ToLower().Contains(_searchText.ToLower()))
+                        if (item.PyName.ToLower ().Contains (_searchText.ToLower ()))
                         {
-                            var item1 = item;
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                            var item1=item;
+                            Dispatcher.Invoke (DispatcherPriority.Normal,new Action (() =>
                             {
-                                MemberList.Add(item1);
+                                MemberList.Add (item1);
                             }));
                         }
                     }
                 }
             });
-            _searchThread.Start();
+            _searchThread.Start ();
         }
 
         /// <summary>
@@ -199,11 +220,11 @@ namespace CustomUI.Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LeftMoveBtn_OnClick(object sender, RoutedEventArgs e)
+        private void LeftMoveBtn_OnClick (object sender,RoutedEventArgs e)
         {
             foreach (var item in NodeControlList)
             {
-                item.RemoveItem();
+                item.RemoveItem ();
             }
         }
 
@@ -212,43 +233,46 @@ namespace CustomUI.Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RightMoveBtn_OnClick(object sender, RoutedEventArgs e)
+        private void RightMoveBtn_OnClick (object sender,RoutedEventArgs e)
         {
-            var item = AuthorListBox.SelectedItem as ListViewMemberItem;
-            if (item == null) return;
-            item.IsVisible = Visibility.Collapsed;
-            NodeControlList.ForEach(p => p.AddItem(item));
+            var item=AuthorListBox.SelectedItem as ListViewMemberItem;
+            if (item==null)
+                return;
+            item.IsVisible=Visibility.Collapsed;
+            NodeControlList.ForEach (p => p.AddItem (item));
         }
 
-        private void MoveUp_OnClick(object sender, RoutedEventArgs e)
+        private void MoveUp_OnClick (object sender,RoutedEventArgs e)
         {
-            NodeControlList.ForEach(p => p.ItemMoveUp());
+            NodeControlList.ForEach (p => p.ItemMoveUp ());
         }
 
-        private void MoveDown_OnClick(object sender, RoutedEventArgs e)
+        private void MoveDown_OnClick (object sender,RoutedEventArgs e)
         {
-            NodeControlList.ForEach(p => p.ItemMoveDown());
+            NodeControlList.ForEach (p => p.ItemMoveDown ());
         }
         #endregion
 
         #region [Shortcut Operation]
-        private void SearchInpuTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void SearchInpuTextBox_OnTextChanged (object sender,TextChangedEventArgs e)
         {
-            SearchBtn_OnClick(null, null);
+            SearchBtn_OnClick (null,null);
         }
 
-        private void AuthorListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void AuthorListBox_OnMouseDoubleClick (object sender,MouseButtonEventArgs e)
         {
-            RightMoveBtn_OnClick(null, null);
+            RightMoveBtn_OnClick (null,null);
         }
 
-        void HandlerRemoveAuthorEvent(object sender, AuthorEventArgs e)
+        void HandlerRemoveAuthorEvent (object sender,AuthorEventArgs e)
         {
-            if (e.AuthorEnitiy == null) return;
-            var firstOrDefault = MemberList.FirstOrDefault(p => p == e.AuthorEnitiy);
-            if (firstOrDefault == null) return;
-            firstOrDefault.IsVisible = Visibility.Visible;
-            AuthorListBox.SelectedItem = firstOrDefault;
+            if (e.AuthorEnitiy==null)
+                return;
+            var firstOrDefault=MemberList.FirstOrDefault (p => p==e.AuthorEnitiy);
+            if (firstOrDefault==null)
+                return;
+            firstOrDefault.IsVisible=Visibility.Visible;
+            AuthorListBox.SelectedItem=firstOrDefault;
         }
         #endregion
 

@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using CustomUI.Entitys;
 using CustomUI.Interface;
 using XmlFileTransferHandle.XmlEntitys;
-using SelectedMemberNode = CustomUI.Entitys.SelectedMemberNode;
+using SelectedMemberNode=CustomUI.Entitys.SelectedMemberNode;
 
 namespace CustomUI.Controls
 {
     /// <summary>
     /// Interaction logic for AuthorSelectControl.xaml
     /// </summary>
-    public partial class TreeViewMemberSelectControl : IParameterBasicInterface
+    public partial class TreeViewMemberSelectControl:IParameterBasicInterface
     {
         #region [Field]
         private IEnumerator<TreeNodeExtend> _matchingPeopleEnumerator;
@@ -21,163 +23,188 @@ namespace CustomUI.Controls
 
         //private ObservableCollection<string> SelectList { get; set; }
 
-        private List<SelectedMemberNode> Nodes { get; set; }
-        private List<NodeControl> NodeControlList { get; set; }
+        private List<SelectedMemberNode> Nodes
+        {
+            get;
+            set;
+        }
+        private List<NodeControl> NodeControlList
+        {
+            get;
+            set;
+        }
 
         #endregion
 
-        public TreeViewMemberSelectControl()
+        public TreeViewMemberSelectControl ()
         {
-            InitializeComponent();
-            NodeControlList = new List<NodeControl>();
+            InitializeComponent ();
+            NodeControlList=new List<NodeControl> ();
         }
 
-        public Param ParamItem { get; set; }
-
-        public void InitData()
+        public Param ParamItem
         {
-            var source = new DataSource();
-            _rootNode = source.Get(source.GetDataFromDB());
-            AuthorsTreeView.ItemsSource = _rootNode;
+            get;
+            set;
+        }
 
-            Nodes = ParamItem.SelectedMemberNode.Select(item => new SelectedMemberNode(item.Caption)).ToList();
-
-            var guid = Guid.NewGuid();
-            for (int i = 0; i < Nodes.Count; i++)
+        public Task InitData ()
+        {
+            var task = new Task(() =>
             {
-                var control = new NodeControl(Nodes[i].NodeName, i == 0, guid.ToString());
-                control.RemoveAuthorEventHandler += HandlerRemoveAuthorEvent;
-                control.Height = 110;
+                var source=new DataSource ();
+                _rootNode=source.Get (source.GetDataFromDB ());
+          
+                Nodes=ParamItem.SelectedMemberNode.Select (item => new SelectedMemberNode (item.Caption)).ToList ();
 
-                NodeControlList.Add(control);
-                ChildrenPanel.Children.Add(control);
-            }
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    AuthorsTreeView.ItemsSource=_rootNode;
+                    var guid=Guid.NewGuid ();
+                    for (int i=0 ; i<Nodes.Count ; i++)
+                    {
+                        var control=new NodeControl (Nodes[i].NodeName,i==0,guid.ToString ());
+                        control.RemoveAuthorEventHandler+=HandlerRemoveAuthorEvent;
+                        control.Height=110;
+
+                        NodeControlList.Add (control);
+                        ChildrenPanel.Children.Add (control);
+                    }
+                }));
+            });
+            return task;
         }
 
-        public void SaveParameter()
+        public void SaveParameter ()
         {
 
         }
 
         #region [Private Method]
 
-        private void HandlerRemoveAuthorEvent(object sender, AuthorEventArgs e)
+        private void HandlerRemoveAuthorEvent (object sender,AuthorEventArgs e)
         {
-            var tagetAuthor = e.AuthorEnitiy as TreeNodeExtend;
-            if (tagetAuthor == null) return;
-            tagetAuthor.IsVisibility = Visibility.Visible;
-            tagetAuthor.IsSelected = true;
+            var tagetAuthor=e.AuthorEnitiy as TreeNodeExtend;
+            if (tagetAuthor==null)
+                return;
+            tagetAuthor.IsVisibility=Visibility.Visible;
+            tagetAuthor.IsSelected=true;
         }
 
-        private void AddAuthor_OnClick(object sender, RoutedEventArgs e)
+        private void AddAuthor_OnClick (object sender,RoutedEventArgs e)
         {
-            var author = AuthorsTreeView.SelectedItem as TreeNodeExtend;
-            if (author == null) return;
-            if (author.Children.Count > 0) return;
+            var author=AuthorsTreeView.SelectedItem as TreeNodeExtend;
+            if (author==null)
+                return;
+            if (author.Children.Count>0)
+                return;
 
             foreach (var item in NodeControlList)
             {
-                item.AddItem(author);
+                item.AddItem (author);
             }
-            author.IsVisibility = Visibility.Collapsed;
+            author.IsVisibility=Visibility.Collapsed;
         }
 
-        private void Remove_OnClick(object sender, RoutedEventArgs e)
+        private void Remove_OnClick (object sender,RoutedEventArgs e)
         {
             foreach (var item in NodeControlList)
             {
-                item.RemoveItem();
+                item.RemoveItem ();
             }
         }
 
-        private void MoveUp_OnClick(object sender, RoutedEventArgs e)
+        private void MoveUp_OnClick (object sender,RoutedEventArgs e)
         {
             foreach (var item in NodeControlList)
             {
-                item.ItemMoveUp();
+                item.ItemMoveUp ();
             }
         }
 
-        private void MoveDown_OnClick(object sender, RoutedEventArgs e)
+        private void MoveDown_OnClick (object sender,RoutedEventArgs e)
         {
             foreach (var item in NodeControlList)
             {
-                item.ItemMoveDown();
+                item.ItemMoveDown ();
             }
         }
 
-        private void BtnOK_OnClick(object sender, RoutedEventArgs e)
+        private void BtnOK_OnClick (object sender,RoutedEventArgs e)
         {
-            var list = new List<SelectedMemberNodeItem>();
+            var list=new List<SelectedMemberNodeItem> ();
             foreach (var item in NodeControlList)
             {
 
-                list.AddRange(item.GetData());
+                list.AddRange (item.GetData ());
             }
-            if (list.Count < 1) return;
+            if (list.Count<1)
+                return;
 
-            var displayName = string.Empty;
-            for (int i = 0; i < list.Count; i++)
+            var displayName=string.Empty;
+            for (int i=0 ; i<list.Count ; i++)
             {
-                if (i == 0)
+                if (i==0)
                 {
-                    displayName = list[i].Name;
+                    displayName=list[i].Name;
                 }
                 else
                 {
-                    if (i > 2)
+                    if (i>2)
                     {
-                        displayName = string.Format("{0}...", displayName);
+                        displayName=string.Format ("{0}...",displayName);
                         break;
                     }
-                    displayName = string.Format("{0},{1}", displayName, list[i].Name);
+                    displayName=string.Format ("{0},{1}",displayName,list[i].Name);
                 }
             }
 
-            XDisplayNameTb.Text = displayName;
-            XSelectPopup.IsOpen = false;
+            XDisplayNameTb.Text=displayName;
+            XSelectPopup.IsOpen=false;
         }
 
-        private void BtnCancel_OnClick(object sender, RoutedEventArgs e)
+        private void BtnCancel_OnClick (object sender,RoutedEventArgs e)
         {
-            XSelectPopup.IsOpen = false;
+            XSelectPopup.IsOpen=false;
         }
 
-        private void Search_OnClick(object sender, RoutedEventArgs e)
+        private void Search_OnClick (object sender,RoutedEventArgs e)
         {
-            PerformSearch(XSearchText.Text);
+            PerformSearch (XSearchText.Text);
         }
 
         #region Search Logic
 
-        private void PerformSearch(string searchText)
+        private void PerformSearch (string searchText)
         {
-            if (string.IsNullOrEmpty(searchText)) return;
+            if (string.IsNullOrEmpty (searchText))
+                return;
 
-            if (_matchingPeopleEnumerator == null || !_matchingPeopleEnumerator.MoveNext())
-                VerifyMatchingPeopleEnumerator(searchText);
+            if (_matchingPeopleEnumerator==null||!_matchingPeopleEnumerator.MoveNext ())
+                VerifyMatchingPeopleEnumerator (searchText);
 
-            if (_matchingPeopleEnumerator == null) return;
-            var person = _matchingPeopleEnumerator.Current;
+            if (_matchingPeopleEnumerator==null)
+                return;
+            var person=_matchingPeopleEnumerator.Current;
 
-            if (person == null)
+            if (person==null)
                 return;
 
             // Ensure that this person is in view.
-            if (person.Parent != null)
-                person.Parent.IsExpanded = true;
+            if (person.Parent!=null)
+                person.Parent.IsExpanded=true;
 
-            person.IsSelected = true;
+            person.IsSelected=true;
         }
 
-        private void VerifyMatchingPeopleEnumerator(string searchtext)
+        private void VerifyMatchingPeopleEnumerator (string searchtext)
         {
-            var matches = FindMatches(searchtext, _rootNode);
-            _matchingPeopleEnumerator = matches.GetEnumerator();
+            var matches=FindMatches (searchtext,_rootNode);
+            _matchingPeopleEnumerator=matches.GetEnumerator ();
 
-            if (!_matchingPeopleEnumerator.MoveNext())
+            if (!_matchingPeopleEnumerator.MoveNext ())
             {
-                MessageBox.Show(
+                MessageBox.Show (
                     "No matching names were found.",
                     "Try Again",
                     MessageBoxButton.OK,
@@ -186,28 +213,28 @@ namespace CustomUI.Controls
             }
         }
 
-        IEnumerable<TreeNodeExtend> FindMatches(string searchText, IEnumerable<TreeNodeExtend> persons)
+        IEnumerable<TreeNodeExtend> FindMatches (string searchText,IEnumerable<TreeNodeExtend> persons)
         {
             foreach (TreeNodeExtend child in persons)
             {
-                if (child.NameContainsText(searchText) && child.Children.Count == 0)
+                if (child.NameContainsText (searchText)&&child.Children.Count==0)
                     yield return child;
 
-                foreach (TreeNodeExtend match in FindMatches(searchText, child.Children))
+                foreach (TreeNodeExtend match in FindMatches (searchText,child.Children))
                     yield return match;
             }
         }
 
         #endregion // Search Logic
 
-        private void ShowSelect_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ShowSelect_OnMouseLeftButtonUp (object sender,MouseButtonEventArgs e)
         {
-            XSelectPopup.IsOpen = XSelectPopup.IsOpen != true;
+            XSelectPopup.IsOpen=XSelectPopup.IsOpen!=true;
         }
 
-        private void BtnShowSelect_OnClick(object sender, RoutedEventArgs e)
+        private void BtnShowSelect_OnClick (object sender,RoutedEventArgs e)
         {
-            XSelectPopup.IsOpen = XSelectPopup.IsOpen != true;
+            XSelectPopup.IsOpen=XSelectPopup.IsOpen!=true;
         }
 
         /// <summary>
@@ -215,11 +242,11 @@ namespace CustomUI.Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TreeViewItem_OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void TreeViewItem_OnMouseDown (object sender,MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 2)
+            if (e.ClickCount==2)
             {
-                AddAuthor_OnClick(null, null);
+                AddAuthor_OnClick (null,null);
             }
         }
 
@@ -228,11 +255,11 @@ namespace CustomUI.Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void XSearchText_OnKeyDown(object sender, KeyEventArgs e)
+        private void XSearchText_OnKeyDown (object sender,KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key==Key.Enter)
             {
-                PerformSearch(XSearchText.Text);
+                PerformSearch (XSearchText.Text);
             }
         }
 
@@ -242,21 +269,26 @@ namespace CustomUI.Controls
 
     public class DataSource
     {
-        public List<TreeNodeExtend> Get(List<TreeNode> authorList)
+        public List<TreeNodeExtend> Get (List<TreeNode> authorList)
         {
-            var list = new List<TreeNodeExtend>();
-            foreach (var item in authorList.Where(p => p.ParentID == "0"))
+            var list=new List<TreeNodeExtend> ();
+            foreach (var item in authorList.Where (p => p.ParentID=="0"))
             {
-                var authorExtend = new TreeNodeExtend { ID = item.ID, Name = item.Name, Pid = item.ParentID };
-                list.Add(authorExtend);
-                GenerateData(authorList, authorExtend);
+                var authorExtend=new TreeNodeExtend
+                {
+                    ID=item.ID,
+                    Name=item.Name,
+                    Pid=item.ParentID
+                };
+                list.Add (authorExtend);
+                GenerateData (authorList,authorExtend);
             }
             return list;
         }
 
-        public List<TreeNode> GetDataFromDB()
+        public List<TreeNode> GetDataFromDB ()
         {
-            var list = new List<TreeNode>
+            var list=new List<TreeNode>
             {
                 new TreeNode("经济研究所", "1001", "0"),
                 new TreeNode("所长室", "2001", "1001"),
@@ -286,13 +318,19 @@ namespace CustomUI.Controls
             return list;
         }
 
-        private void GenerateData(List<TreeNode> authorList, TreeNodeExtend parent)
+        private void GenerateData (List<TreeNode> authorList,TreeNodeExtend parent)
         {
-            foreach (var item in authorList.Where(p => p.ParentID == parent.ID))
+            foreach (var item in authorList.Where (p => p.ParentID==parent.ID))
             {
-                var authorExtend = new TreeNodeExtend { ID = item.ID, Name = item.Name, Pid = item.ParentID, Parent = parent };
-                parent.Children.Add(authorExtend);
-                GenerateData(authorList, authorExtend);
+                var authorExtend=new TreeNodeExtend
+                {
+                    ID=item.ID,
+                    Name=item.Name,
+                    Pid=item.ParentID,
+                    Parent=parent
+                };
+                parent.Children.Add (authorExtend);
+                GenerateData (authorList,authorExtend);
             }
         }
     }
