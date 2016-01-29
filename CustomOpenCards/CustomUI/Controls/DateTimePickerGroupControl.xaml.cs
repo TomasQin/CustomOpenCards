@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using CustomUI.Common;
 using CustomUI.Entitys;
 using CustomUI.Interface;
@@ -12,144 +15,164 @@ namespace CustomUI.Controls
     /// <summary>
     /// Interaction logic for DateTimePickerControl.xaml
     /// </summary>
-    public partial class DateTimePickerGroupControl : IParameterBasicInterface
+    public partial class DateTimePickerGroupControl:IParameterBasicInterface
     {
         #region [Fied]
-        private readonly List<DatePicker> _controlList = new List<DatePicker>();
+        private readonly List<DatePicker> _controlList=new List<DatePicker> ();
         #endregion
 
-        public DateTimePickerGroupControl()
+        public DateTimePickerGroupControl ()
         {
-            InitializeComponent();
+            InitializeComponent ();
         }
 
-        public Param ParamItem { get; set; }
+        public Param ParamItem
+        {
+            get;
+            set;
+        }
 
-        public  void SaveParameter()
+        public void SaveParameter ()
         {
 
         }
 
-        public  void InitData()
+        public Task InitData ()
         {
-            var baseDateTinme = DateTime.Now;
-            DatePicker parentDatePicker = null;
-            foreach (var item in ParamItem.DatePickerItem)
+            var task=new Task (() =>
             {
-                var datePicker = new DatePicker { Tag = item, IsEnabled = item.IsEnable };
-                if (item.LinkedParentID == "Root")
+                Thread.Sleep(1000);
+                Dispatcher.Invoke (DispatcherPriority.Normal,new Action (() =>
                 {
-                    parentDatePicker = datePicker;
-                }
-
-                if (AdvancedPropertyHelp.GetAllProerty().ContainsKey(item.ID))
-                {
-                    _controlList.Add(datePicker);
-
-                    var entity = new ParameterItemEntity(item.Caption, datePicker, ParamItem);
-                    var control = new ContentControl
+                    var baseDateTinme=DateTime.Now;
+                    DatePicker parentDatePicker=null;
+                    foreach (var item in ParamItem.DatePickerItem)
                     {
-                        Template = FindResource("ParameterTemplate") as ControlTemplate,
-                        DataContext = entity
-                    };
-                    RootStackPanel.Children.Add(control);
-                }
-            }
+                        var datePicker=new DatePicker
+                        {
+                            Tag=item,
+                            IsEnabled=item.IsEnable
+                        };
+                        if (item.LinkedParentID=="Root")
+                        {
+                            parentDatePicker=datePicker;
+                        }
 
-            if (parentDatePicker != null)
-            {
-                parentDatePicker.SelectedDateChanged += ParametersManagement_SelectedDateChanged;
-                parentDatePicker.Text = baseDateTinme.ToShortDateString();
-            }
+                        if (AdvancedPropertyHelp.GetAllProerty ().ContainsKey (item.ID))
+                        {
+                            _controlList.Add (datePicker);
+
+                            var entity=new ParameterItemEntity (item.Caption,datePicker,ParamItem);
+                            var control=new ContentControl
+                            {
+                                Template=FindResource ("ParameterTemplate") as ControlTemplate,
+                                DataContext=entity
+                            };
+                            RootStackPanel.Children.Add (control);
+                        }
+                    }
+
+                    if (parentDatePicker!=null)
+                    {
+                        parentDatePicker.SelectedDateChanged+=ParametersManagement_SelectedDateChanged;
+                        parentDatePicker.Text=baseDateTinme.ToShortDateString ();
+                    }
+                }));
+            });
+
+            return task;
         }
 
         #region [Private Method]
-        private void ParametersManagement_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void ParametersManagement_SelectedDateChanged (object sender,SelectionChangedEventArgs e)
         {
-            if (_controlList.Count < 2) return;
-            var picker = sender as DatePicker;
-            if (picker == null) return;
-            var baseDateTinme = DateTime.Parse(picker.Text);
+            if (_controlList.Count<2)
+                return;
+            var picker=sender as DatePicker;
+            if (picker==null)
+                return;
+            var baseDateTinme=DateTime.Parse (picker.Text);
 
             foreach (var datePicker in _controlList)
             {
-                var info = datePicker.Tag as DatePickerItem;
-                if (info == null) continue;
+                var info=datePicker.Tag as DatePickerItem;
+                if (info==null)
+                    continue;
                 switch (info.DateTimePickerType)
                 {
                     case DateTimePickerType.QuarterStart:
-                        datePicker.Text = GetQuarterStartDate(baseDateTinme).ToShortDateString();
+                        datePicker.Text=GetQuarterStartDate (baseDateTinme).ToShortDateString ();
                         break;
                     case DateTimePickerType.QuarterEnd:
-                        datePicker.Text = GetQuarterEndDate(baseDateTinme).ToShortDateString();
+                        datePicker.Text=GetQuarterEndDate (baseDateTinme).ToShortDateString ();
                         break;
                     case DateTimePickerType.AddDays:
-                        datePicker.Text = baseDateTinme.AddDays(info.AddValue).ToShortDateString();
+                        datePicker.Text=baseDateTinme.AddDays (info.AddValue).ToShortDateString ();
                         break;
                     case DateTimePickerType.AddMonths:
-                        datePicker.Text = baseDateTinme.AddMonths(info.AddValue).ToShortDateString();
+                        datePicker.Text=baseDateTinme.AddMonths (info.AddValue).ToShortDateString ();
                         break;
                     case DateTimePickerType.AddYears:
-                        datePicker.Text = baseDateTinme.AddYears(info.AddValue).ToShortDateString();
+                        datePicker.Text=baseDateTinme.AddYears (info.AddValue).ToShortDateString ();
                         break;
                 }
 
             }
         }
 
-        private DateTime GetQuarterStartDate(DateTime dateTime)
+        private DateTime GetQuarterStartDate (DateTime dateTime)
         {
-            DateTime quarterStart = new DateTime();
+            DateTime quarterStart=new DateTime ();
             switch (dateTime.Month)
             {
                 case 1:
                 case 2:
                 case 3:
-                    quarterStart = DateTime.Parse(String.Format("{0}-12-31", dateTime.AddYears(-1).Year));
+                    quarterStart=DateTime.Parse (String.Format ("{0}-12-31",dateTime.AddYears (-1).Year));
                     break;
                 case 4:
                 case 5:
                 case 6:
-                    quarterStart = DateTime.Parse(String.Format("{0}-3-31", dateTime.Year));
+                    quarterStart=DateTime.Parse (String.Format ("{0}-3-31",dateTime.Year));
                     break;
                 case 7:
                 case 8:
                 case 9:
-                    quarterStart = DateTime.Parse(String.Format("{0}-6-30", dateTime.Year));
+                    quarterStart=DateTime.Parse (String.Format ("{0}-6-30",dateTime.Year));
                     break;
                 case 10:
                 case 11:
                 case 12:
-                    quarterStart = DateTime.Parse(String.Format("{0}-9-30", dateTime.Year));
+                    quarterStart=DateTime.Parse (String.Format ("{0}-9-30",dateTime.Year));
                     break;
             }
             return quarterStart;
         }
 
-        private DateTime GetQuarterEndDate(DateTime dateTime)
+        private DateTime GetQuarterEndDate (DateTime dateTime)
         {
-            DateTime quarterEnd = new DateTime();
+            DateTime quarterEnd=new DateTime ();
             switch (dateTime.Month)
             {
                 case 1:
                 case 2:
                 case 3:
-                    quarterEnd = DateTime.Parse(String.Format("{0}-3-31", dateTime.Year));
+                    quarterEnd=DateTime.Parse (String.Format ("{0}-3-31",dateTime.Year));
                     break;
                 case 4:
                 case 5:
                 case 6:
-                    quarterEnd = DateTime.Parse(String.Format("{0}-6-30", dateTime.Year));
+                    quarterEnd=DateTime.Parse (String.Format ("{0}-6-30",dateTime.Year));
                     break;
                 case 7:
                 case 8:
                 case 9:
-                    quarterEnd = DateTime.Parse(String.Format("{0}-9-30", dateTime.Year));
+                    quarterEnd=DateTime.Parse (String.Format ("{0}-9-30",dateTime.Year));
                     break;
                 case 10:
                 case 11:
                 case 12:
-                    quarterEnd = DateTime.Parse(String.Format("{0}-12-31", dateTime.Year));
+                    quarterEnd=DateTime.Parse (String.Format ("{0}-12-31",dateTime.Year));
                     break;
             }
             return quarterEnd;

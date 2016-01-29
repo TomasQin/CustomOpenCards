@@ -1,4 +1,5 @@
-﻿using XmlFileTransferHandle.XmlEntitys;
+﻿using System.Threading.Tasks;
+using XmlFileTransferHandle.XmlEntitys;
 
 namespace CustomUI.Interface
 {
@@ -8,6 +9,6 @@ namespace CustomUI.Interface
 
         void SaveParameter();
 
-        void InitData();
+        Task InitData();
     }
 }

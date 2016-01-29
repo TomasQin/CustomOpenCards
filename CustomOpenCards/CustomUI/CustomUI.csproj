@@ -52,8 +52,6 @@
     <Compile Include="AttachProperty\LayoutExtension.cs" />
     <Compile Include="Common\AdvancedPropertyHelp.cs" />
     <Compile Include="Common\QueueThreadBase.cs" />
-    <Compile Include="Common\TaskHandler.cs" />
-    <Compile Include="Common\TaskWorker.cs" />
     <Compile Include="Controls\CommonControls\CustomDropDwonControl.xaml.cs">
       <DependentUpon>CustomDropDwonControl.xaml</DependentUpon>
     </Compile>
