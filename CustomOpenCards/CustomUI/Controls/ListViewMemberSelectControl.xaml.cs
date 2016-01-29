@@ -218,6 +218,7 @@ namespace CustomUI.Controls
             if (item == null) return;
             item.IsVisible = Visibility.Collapsed;
             NodeControlList.ForEach(p => p.AddItem(item));
+            AuthorListBox.SelectedIndex = AuthorListBox.SelectedIndex + 1;
         }
 
         private void MoveUp_OnClick(object sender, RoutedEventArgs e)
